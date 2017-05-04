@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#main {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 5rem;
+        flex-wrap: wrap;
+    }
+    nav{
+    	display: flex;
+    	justify-content: space-between;
+    }
+    
+    #entities{
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-around;
+    	width: 40%;
+        flex-wrap: wrap;
+
+    }
+    .entities-list{
+    	display: flex;
+    	flex-direction: column;
+    }
+    .entity-continaer{
+    }
+
+    .entities-list > header{
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-between;
+    	border-bottom: thin solid black;
+    	padding-bottom: 3px;
+
+
+    }
+    .btn-add{
+    	border: thin solid black;
+    	border-radius: 100px;
+    }
+
+    .entity-continaer{
+    	display: flex;
+    	flex-direction: row;
+    }
+    .description-container{
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: space-around;
+    }
+
+    #test{
+    	border: thin solid black;
+    	width: 600px;
+    	height: 300px;
+    }
+
+
+
+
+
+	</style>
+</head>
+<body>
+	<header>
+		<nav>
+			<div id="menu">
+				<img src="http://opensourceschoolsoftware.com/images/OS.png" width=50px> |
+				<a href="/css/">School</a> |
+				<a href="/js/">Administration</a>
+			</div>
+			<div id="signed-user">
+				<small>Avi Schnarch, Manager</small> |
+				<a href="/js/">logout</a> |
+				<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" width=50px>
+			</div>
+		</nav>
+	</header>
+	
+	<div id="main">
+		<section id="entities">
+
+			<div class="entities-list">
+				<header>
+					<span>Courses</span>
+					<div class="btn-add">+</div>
+				</header>
+				<div class="entity-continaer">
+					<img src="https://statinfer.com/wp-content/uploads/2016/11/python-logo-315x315.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: Python</small>
+						<small>Phone: 0545540121</small>
+					</div>
+				</div>
+				<div class="entity-continaer">
+					<img src="http://www.cbronline.com/wp-content/uploads/2016/07/C.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: C++</small>
+						<small>Phone: 0545540121</small>
+					</div>
+				</div>
+			</div>
+
+			<div class="entities-list">
+				<header>
+					<span>Students</span>
+					<span class="btn-add">+</span>
+				</header>
+				<div class="entity-continaer">
+					<img src="https://statinfer.com/wp-content/uploads/2016/11/python-logo-315x315.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: Python</small>
+						<small>Phone: 0545540121</small>
+					</div>
+				</div>
+				<div class="entity-continaer">
+					<img src="http://www.cbronline.com/wp-content/uploads/2016/07/C.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: C++</small>
+						<small>Phone: 0545540121</small>
+					</div>
+				</div>
+			</div>
+			
+		</section>
+
+		<section id=view>
+			<div id="test"></div>
+		</section>
+
+	</div>
+</body>
+</html>
