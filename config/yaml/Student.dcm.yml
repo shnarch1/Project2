@@ -1,0 +1,47 @@
+Student:
+  type: entity
+  table: students
+  
+  id:  
+    id:
+      type: integer
+      nullable: false
+      generator:
+        strategy: AUTO
+      options:
+        unsigned: true
+  
+  fields: 
+    name:
+      type: string
+      length: 20
+      nullable: false
+    
+    phone:
+      type: string
+      length: 20
+      nullable: false
+      unique: true
+
+    email:
+      type: string
+      length: 254
+      nullable: false
+      unique: true
+
+    image_url:
+      type: string
+      length: 255
+      nullable: false
+
+  manyToMany:
+    courses:
+      targetEntity: Course
+      joinTable:
+        name: enrollments
+        joinColumns:
+          student_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          course_id:
+            referencedColumnName: id
