@@ -27,13 +27,22 @@
 	// $entityManager->flush();
 
 	// $students = $entityManager->find('Student', 2);
-	$student = $entityManager->getRepository('Student')->find(1);
-	$course = $entityManager->getRepository('Course')->find(2);
-	echo $student->getName();
-	echo $course->getName();
-	$course = $entityManager->getReference('Course', 8);
-	$student->courses->add($course);
-	$entityManager->flush();
+	// $student = $entityManager->getRepository('Student')->find(1);
+	// $course = $entityManager->getRepository('Course')->find(2);
+	// echo $student->getName();
+	// echo $course->getName();
+	// $course = $entityManager->getReference('Course', 8);
+	// $student->courses->add($course);
+	// $entityManager->flush();
+
+	//All the students in course id
+	//php vendor/bin/doctrine.php orm:run-dql "SELECT s.name FROM Student s JOIN s.courses c where c.id=3"
+
+	//All courses fo students id
+	//php vendor/bin/doctrine.php orm:run-dql "SELECT c.name FROM Student s JOIN s.courses c where s.id=1"
+
+	$query = $entityManager->createQuery('SELECT s, c FROM src/Student s JOIN ENROLLMENT e WITH s.id = e.student_id JOIN src/Course c WITH c.id = e.course_id');
+	$users = $query->getResult();
 
 
 
