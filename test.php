@@ -1,8 +1,8 @@
 <?php 
 
 	require_once "bootstrap.php";
-	require_once "src/Course.php";
-	require_once "src/Student.php";
+	include 'src/Entity/Student.php';
+	include 'src/Entity/Course.php';
 
 	// $course1 = new Course("Calculus", "Created Bt Doctrine", "/home/user/");
 	// $course2 = new Course("Physics", "Created Bt Doctrine", "/home/user/");
@@ -27,7 +27,8 @@
 	// $entityManager->flush();
 
 	// $students = $entityManager->find('Student', 2);
-	// $student = $entityManager->getRepository('Student')->find(1);
+	$student = $entityManager->getRepository('Student')->findAll();
+	echo $student[3]->getName();
 	// $course = $entityManager->getRepository('Course')->find(2);
 	// echo $student->getName();
 	// echo $course->getName();
@@ -41,8 +42,8 @@
 	//All courses fo students id
 	//php vendor/bin/doctrine.php orm:run-dql "SELECT c.name FROM Student s JOIN s.courses c where s.id=1"
 
-	$query = $entityManager->createQuery('SELECT s, c FROM src/Student s JOIN ENROLLMENT e WITH s.id = e.student_id JOIN src/Course c WITH c.id = e.course_id');
-	$users = $query->getResult();
+	// $query = $entityManager->createQuery('SELECT s, c FROM src/Student s JOIN ENROLLMENT e WITH s.id = e.student_id JOIN src/Course c WITH c.id = e.course_id');
+	// $users = $query->getResult();
 
 
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#main {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 5rem;
+        flex-wrap: wrap;
+    }
+    nav{
+    	display: flex;
+    	justify-content: space-between;
+    }
+    
+    #entities{
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-around;
+    	width: 40%;
+        flex-wrap: wrap;
+
+    }
+    .entities-list{
+    	display: flex;
+    	flex-direction: column;
+    }
+    .entity-continaer{
+    }
+
+    .entities-list > header{
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-between;
+    	border-bottom: thin solid black;
+    	padding-bottom: 3px;
+
+
+    }
+    .btn-add{
+    	border: thin solid black;
+    	border-radius: 100px;
+    }
+
+    .entity-continaer{
+    	display: flex;
+    	flex-direction: row;
+    }
+    .description-container{
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: space-around;
+    }
+
+    #test{
+    	border: thin solid black;
+    	width: 600px;
+    	height: 300px;
+    }
+	</style>
+</head>
+<body>	
+	{{ include('header.html') }}
+	<main id="main">
+  		{% for section in sections  %}
+    		{{ include(section) }}
+  		{% endfor %}
+	</main>
+</body>
+</html>

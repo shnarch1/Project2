@@ -1,0 +1,35 @@
+		<section id="entities">
+
+			<div class="entities-list">
+				<header>
+					<span>Courses</span>
+					<div class="btn-add">+</div>
+				</header>
+				{% for course in courses %}
+				<div class="entity-continaer">
+					<img src="https://statinfer.com/wp-content/uploads/2016/11/python-logo-315x315.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: {{course.name}}</small>
+						<small>Description: {{ course.description}}</small>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div class="entities-list">
+				<header>
+					<span>Students</span>
+					<span class="btn-add">+</span>
+				</header>
+				{% for student in students %}
+				<div class="entity-continaer">
+					<img src="https://statinfer.com/wp-content/uploads/2016/11/python-logo-315x315.png" width=100px height=100px>
+					<div class="description-container">
+						<small>Name: {{ student.name }}</small>
+						<small>Phone: {{ student.phone }}</small>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			
+		</section>
