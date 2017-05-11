@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 
 require 'vendor/autoload.php';
 require 'src/Controller/schoolController.php';
+require 'src/Controller/courseController.php';
 
 $app = new \Slim\App;
 $container = $app->getContainer();
@@ -53,14 +54,14 @@ $container['schoolController'] = function ($container) {
 	return new schoolController($container);
 };
 
+$container['courseController'] = function ($container) {
+	return new courseController($container);
+};
+
 $app->get('/school', 'schoolController:showMain');
 
-// $app->get('/school', function ($request, $response, $args)
-// 	{
-// 		$entityManager = $this->get('em');
-// 		$students = $entityManager->find('Student', 2);
-//     	return $this->view->render($response, 'main.html');
-//     	});
+$app->get('/school/course/{id}', 'courseController:showCourse');
+
 
 $app->run();
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			height:300px;
+			width: 600px;
+		}
+		header{
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			border-bottom: thin solid black;
+		}
+		button{
+			margin-bottom: .2rem;
+		}
+		img{
+			height: 200px;
+		}
+		main{
+			display: flex;
+			flex-direction: column;
+
+		}
+		.up{
+			display: flex;
+			flex-direction: row;
+			margin-top: 2rem;
+		}
+
+		.course-students{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		.student{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			width:50%;
+			font-size: 20px;
+			
+		}
+
+		.student img{
+			height: 40px;
+		}
+
+
+	</style>
+</head>
+<body>
+	<header>
+			<strong>Course {{ course.getNAme }}</strong>
+			<button>Edit</button>
+	</header>
+	<main>
+		<section class="up">
+			<div id="course-image">
+				<img src="{{ course.GetImageUrl }}">
+			</div>
+			<div>
+				<h1>{{ course.GetName }}, {{ num_of_students}} Students</h1>
+				<p> {{ course.description }}</p>
+			</div>
+		</section>
+		<section class="course-students">
+			{% for student in students %}
+				<div class="student">
+					<img  src="{{ student.getImageUrl }}">
+					<span>{{ student.getName }}</span>
+				</div>
+			{% endfor %}
+		</section>
+	</main>
+</body>
+</html>
