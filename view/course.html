@@ -3,31 +3,29 @@
 <head>
 	<title></title>
 	<style type="text/css">
-		body{
-			height:300px;
-			width: 600px;
-		}
-		header{
+		#view-header{
 			width: 100%;
 			display: flex;
 			justify-content: space-between;
 			border-bottom: thin solid black;
 		}
-		button{
+		 #view-header > button{
 			margin-bottom: .2rem;
 		}
-		img{
-			height: 200px;
-		}
-		main{
+
+		#view-content{
 			display: flex;
 			flex-direction: column;
 
 		}
-		.up{
+		.view-up{
 			display: flex;
 			flex-direction: row;
 			margin-top: 2rem;
+		}
+
+		.view-up > img{
+			height: 200px;
 		}
 
 		.course-students{
@@ -53,12 +51,12 @@
 	</style>
 </head>
 <body>
-	<header>
-			<strong>Course {{ course.getNAme }}</strong>
+	<header id="view-header">
+			<strong>Course {{ course.getName }}</strong>
 			<button>Edit</button>
 	</header>
-	<main>
-		<section class="up">
+	<main id="view-content">
+		<section class="view-up">
 			<div id="course-image">
 				<img src="{{ course.GetImageUrl }}">
 			</div>
