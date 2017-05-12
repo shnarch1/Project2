@@ -4,13 +4,15 @@
 	<title></title>
 	<style type="text/css">
 	#main {
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         margin-top: 5rem;
         flex-wrap: wrap;
+        width: 90%;
+        max-width: 1300px;
     }
     nav{
     	display: flex;
@@ -20,16 +22,22 @@
     #entities{
     	display: flex;
     	flex-direction: row;
-    	justify-content: space-around;
-    	width: 40%;
-        flex-wrap: wrap;
+    	width: 50%;
+        flex-wrap: wrap;   
 
     }
     .entities-list{
+
     	display: flex;
     	flex-direction: column;
+
     }
-    .entity-continaer{
+    
+    .course-list{
+        width:60%;
+    }
+    .student-list{
+         width:40%;
     }
 
     .entities-list > header{
@@ -58,8 +66,7 @@
 
     #test{
     	border: thin solid black;
-    	width: 600px;
-    	height: 300px;
+        width: 50%;
     }
 	</style>
 </head>

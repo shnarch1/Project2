@@ -60,7 +60,7 @@ $container['courseController'] = function ($container) {
 
 $app->get('/school', 'schoolController:showMain');
 
-$app->get('/school/course/{id}', 'courseController:showCourse');
+$app->get('/school/course/{id}', 'courseController:getCourse');
 
 
 $app->run();
