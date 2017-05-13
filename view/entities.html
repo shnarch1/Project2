@@ -6,7 +6,7 @@
 					<div class="btn-add">+</div>
 				</header>
 				{% for course in courses %}
-				<div class="entity-continaer">
+				<div data-url="school/course/{{ course.getId}}" class="entitiy-container">
 					<img src={{ course.getImageUrl }}>
 					<div class="description-container">
 						<small>{{course.name}}</small>
@@ -22,7 +22,7 @@
 					<span class="btn-add">+</span>
 				</header>
 				{% for student in students %}
-				<div class="entity-continaer">
+				<div class="entitiy-container">
 					<img src= {{ student.getImageUrl }}>
 					<div class="description-container">
 						<small>Name: {{ student.name }}</small>
