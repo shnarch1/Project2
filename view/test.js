@@ -3,7 +3,7 @@ $(".entitiy-container").click(function(event) {
 	var url = entity_container.dataset.url;
 	$.get(url, function(data){
 		// console.dir(data.students)
-		// console.dir(data.course.name);
+		// console.dir(data.course.id);
 		$('#view').empty();
 		buildShowCourse(data.course.id, data.course.name, data.course.image_url, data.course.description, data.students);
 	});
@@ -20,12 +20,19 @@ function findParentNodeByClassName(dom_object, class_name){
 
 function buildShowCourse(id, name, image_url, description, students_list){
 	var num_of_students = students_list.length;
+
+	var edit_button = $("<button>", {text: "Edit",
+									 "data-url": "school/course/" + id,
+									 click: function(event){
+									 	var url = event.target.dataset.url;
+									 	$.get(url, function(data){
+									 		buildEditCourse(url, data.course.name, data.course.description, data.course.image_url, data.students.length)})
+									 	// buildEditCourse()
+									 }});
 	
 	var header = $("<header>", {class: "view-header"})
 								.append($("<span>").text(name))
-							    .append($("<button>", {text: "Edit",
-							    					   "data-url": "school/course/" + id,
-							    					   click: function(event){console.log("Avi")}}))
+							    .append($(edit_button))
 							    .appendTo('#view');
     
 
@@ -48,6 +55,35 @@ function buildShowCourse(id, name, image_url, description, students_list){
 	};
 }
 
-function buildEditCourse(){
+function buildEditCourse(url, name, description, image_url, num_of_students){
+	$('#view').empty();
+	var course_edit_container = $("<div>", {class: "course-edit"});
+	
+	$("<header>", {text: "Edit " + name})
+								.appendTo(course_edit_container);
+	
+	var course_edit_buttons = $("<div>", {class: "course-edit-btns"})
+								.append($("<button>", {text: "Save", "data-url": url}))
+								.append($("<button>", {text: "Delete", "data-url": url}));
 
-}
+    var course_edit_inputs = $("<div>", {class: "course-edit-inputs"})
+								.append($("<input>", {type: "text",
+					 							      name: "course_name",
+					 							      value: name,
+					 							 	  placeholder: "Course Name"}))
+						    	.append($("<textarea>", {name: "course_description",
+						    							 text: description,
+				   								 		 placeholder: "Course Description"}));
+   	
+   	$("<form>").append($(course_edit_buttons))
+   			   .append($(course_edit_inputs))
+   			   .appendTo($(course_edit_container));
+
+   $("<div>", {class: "course-edit-footer"}).append($("<img>", {src: image_url}))
+   											.append($("<footer>", {text: "Total " + num_of_students + " students taging this course"}))
+   											.appendTo($(course_edit_container));
+
+	$(course_edit_container).appendTo("#view");
+}	
+
+
