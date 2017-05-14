@@ -28,7 +28,8 @@ class courseController extends baseController {
 		}
 
 		$response->withHeader('Content-type', 'application/json');
-		$data = array("course" => ["name" => $course->getName(),
+		$data = array("course" => ["id" => $course->getId(),
+								   "name" => $course->getName(),
 								   "description" => $course->getDescription(),
 								   "image_url" => $course->getImageUrl()],
 					  "students" => $students);
@@ -42,7 +43,6 @@ class courseController extends baseController {
   //           ]
   //       );
 	}
-
 }
 
  ?>
