@@ -1,4 +1,4 @@
-##Create / Drop Database
+## Create / Drop Database
 
 vendor/bin/doctrine orm:schema-tool:create
 
