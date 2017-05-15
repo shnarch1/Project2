@@ -61,6 +61,7 @@ $container['courseController'] = function ($container) {
 $app->get('/school', 'schoolController:showMain');
 
 $app->get('/school/course/{id}', 'courseController:getCourse');
+$app->delete('/school/course/{id}', 'courseController:deleteCourse');
 
 
 $app->run();

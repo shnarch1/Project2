@@ -42,6 +42,8 @@ Student:
         joinColumns:
           student_id:
             referencedColumnName: id
+            onDelete: CASCADE
         inverseJoinColumns:
           course_id:
             referencedColumnName: id
+            onDelete: CASCADE

@@ -33,15 +33,17 @@ class courseController extends baseController {
 								   "description" => $course->getDescription(),
 								   "image_url" => $course->getImageUrl()],
 					  "students" => $students);
-		// $data = array('course' => $course, 'students' => $enrolled_students);
 
 		return $response->withJson($data);
-		// return $this->view->render($response, "course.html", [
-  //          		"course" => $course,
-  //          		"students" => $enrolled_students,
-  //          		"num_of_students" => $num_of_students
-  //           ]
-  //       );
+
+	}
+
+	public function deleteCourse(Request $request, Response $response, $args){
+
+		$course_id = $args['id'];
+		$course = $this->entityManager->getRepository('Course')->find($course_id);
+		$this->entityManager->remove($course);
+		$this->entityManager->flush();
 	}
 }
 
