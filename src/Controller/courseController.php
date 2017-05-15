@@ -45,6 +45,10 @@ class courseController extends baseController {
 		$this->entityManager->remove($course);
 		$this->entityManager->flush();
 	}
+
+	public function addCourse(Request $request, Response $response){
+		
+	}
 }
 
  ?>
