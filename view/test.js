@@ -55,6 +55,7 @@ function buildShowCourse(id, name, image_url, description, students_list){
 
 function buildEditCourse(id, url, name, description, image_url, num_of_students){
 	$('#view').empty();
+	
 	var course_edit_container = $("<div>", {class: "course-edit"});
 	
 	$("<header>", {text: "Edit " + name})
@@ -72,11 +73,18 @@ function buildEditCourse(id, url, name, description, image_url, num_of_students)
 
 	});
 
+	var btn_save = $("<input>", {type: "submit", value: "Save"});
+
 	var course_edit_buttons = $("<div>", {class: "course-edit-btns"})
-								.append($("<button>", {text: "Save", "data-url": url}))
+								.append(btn_save)
 								.append($(btn_delete));
 								// .append($("<button>", {text: "Delete",id:"btn-course-delete", "data-url": url}));
 
+	var input_file = $("<input>", {type: "file", 
+								   name: "new_course_image",
+								   accept: "image/*",
+								   id:"course-new-image"})
+								.change(courseImagePreview);
 
     var course_edit_inputs = $("<div>", {class: "course-edit-inputs"})
 								.append($("<input>", {type: "text",
@@ -85,14 +93,16 @@ function buildEditCourse(id, url, name, description, image_url, num_of_students)
 					 							 	  placeholder: "Course Name"}))
 						    	.append($("<textarea>", {name: "course_description",
 						    							 text: description,
-				   								 		 placeholder: "Course Description"}));
+				   								 		 placeholder: "Course Description"}))
+						    	.append(input_file);
    	
-   	$("<form>").append($(course_edit_buttons))
+   	$("<form>", {action: "school/course/update/" + id, method:"post", enctype: "multipart/form-data"})
+   			   .append($(course_edit_buttons))
    			   .append($(course_edit_inputs))
    			   .appendTo($(course_edit_container));
 
    $("<div>", {class: "course-edit-footer"}).append($("<img>", {src: image_url}))
-   											.append($("<footer>", {text: "Total " + num_of_students + " students taging this course"}))
+   											.append($("<footer>", {text: "Total " + num_of_students + " students taking this course"}))
    											.appendTo($(course_edit_container));
 
 	$(course_edit_container).appendTo("#view");
@@ -116,5 +126,26 @@ function findCourseElementById(id){
 	});
 	return course;
 }
+
+function courseImagePreview(event){
+	var input = event.target;
+	var reader = new FileReader();
+
+	reader.onload = function(event){
+		
+		var dataURL = reader.result;
+		var output = $(".course-edit-footer  img");
+		console.dir(output);
+		output[0].src = dataURL;
+	};
+
+	reader.readAsDataURL(input.files[0]);
+};
+
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
+
 
 
