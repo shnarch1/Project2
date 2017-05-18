@@ -41,7 +41,7 @@ function buildShowCourse(id, name, image_url, description, students_list){
 								.appendTo('#view');
 
 	var view_text = $("<div>", {class: "view-text"})
-								.append($("<header>").text(name +", " + num_of_students))
+								.append($("<h1>").text(name +", " + num_of_students))
 								.append($("<p>").text(description))
 								.appendTo(content);
 
@@ -147,6 +147,35 @@ function buildAddCourse(){
 
    $(course_edit_container).appendTo("#view");
 }
+
+function buildShowStudent(name, phone, email, courses){
+
+var edit_button = $("<button>", {text: "Edit"});
+
+var header = $("<header>", {class: "view-header"})
+					.append($("<span>", {text: "Student"}))
+					.append(edit_button);
+
+var view_top = $("<div>", {class:"view-top"})
+					.append($("<img>", {src: image_url}))
+
+var view_text = $("<div>", {class:"view-text"})
+					.append($("<h1>", {text: name}))
+					.append($("<span>", {text: phone}))
+					.append($("<span>", {text: email}))
+					.appendTo(view_top);
+
+var view_bottom = $("<div>", {class:"view-bottom"});
+
+$("<div>", {class:"course-entity"})
+					.append($("<img>", {src: course_image_url}))
+					.append($("<span>", {text: course_name}))
+					.appendTo(view_bottom);
+
+}
+
+
+
 
 function deleteCourse(id){
 
