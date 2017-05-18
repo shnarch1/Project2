@@ -7,6 +7,8 @@ $(".entitiy-container").click(function(event) {
 	});
 });
 
+$(".course-list .btn-add").click(function(event){buildAddCourse()});
+
 
 function findParentNodeByClassName(dom_object, class_name){
     while(!dom_object.classList.contains(class_name)){
@@ -106,6 +108,44 @@ function buildEditCourse(id, url, name, description, image_url, num_of_students)
    											.appendTo($(course_edit_container));
 
 	$(course_edit_container).appendTo("#view");
+}
+
+function buildAddCourse(){
+	$('#view').empty();
+	
+	var course_edit_container = $("<div>", {class: "course-edit"});
+	
+	$("<header>", {text: "Add new course"})
+								.appendTo(course_edit_container);
+
+	var btn_save = $("<input>", {type: "submit", value: "Save"});
+
+	var course_edit_buttons = $("<div>", {class: "course-edit-btns"})
+								.append(btn_save);
+
+	var input_file = $("<input>", {type: "file", 
+								   name: "new_course_image",
+								   accept: "image/*",
+								   id:"course-new-image"})
+								.change(courseImagePreview);
+
+	var course_edit_inputs = $("<div>", {class: "course-edit-inputs"})
+								.append($("<input>", {type: "text",
+					 							      name: "course_name",
+					 							 	  placeholder: "Course Name"}))
+						    	.append($("<textarea>", {name: "course_description",
+				   								 		 placeholder: "Course Description"}))
+						    	.append(input_file);
+
+	$("<form>", {action: "school/course" , method:"post", enctype: "multipart/form-data"})
+   			   .append($(course_edit_buttons))
+   			   .append($(course_edit_inputs))
+   			   .appendTo($(course_edit_container));
+
+   	$("<div>", {class: "course-edit-footer"}).append($("<img>"))
+   											 .appendTo($(course_edit_container));
+
+   $(course_edit_container).appendTo("#view");
 }
 
 function deleteCourse(id){

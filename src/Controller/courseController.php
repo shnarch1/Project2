@@ -80,7 +80,24 @@ class courseController extends baseController {
 	}
 
 	public function addCourse(Request $request, Response $response){
-		
+		$files = $request->getUploadedFiles();
+		$content = $request->getParams();
+
+		$new_image = $files['new_course_image'];
+
+		$new_image_file_name = $new_image->getClientFilename();
+    	$new_image_url = "public/images/course/" + $new_image_file_name;
+    	$new_image->moveTo($new_image_url);
+
+		$course = new Course();
+		$course->setName($content['course_name']);
+		$course->setDescription($content['course_description']);
+		$course->setImageUrl($new_image_url);
+
+		$this->entityManager->persist($course);
+		$this->entityManager->flush();
+
+		return $response->withRedirect("/school");
 	}
 }
 
