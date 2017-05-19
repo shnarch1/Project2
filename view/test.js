@@ -1,9 +1,18 @@
-$(".entitiy-container").click(function(event) {
+$(".course-list .entitiy-container").click(function(event) {
 	var entity_container = findParentNodeByClassName(event.target, "entitiy-container");
 	var url = entity_container.dataset.url;
 	$.get(url, function(data){
 		$('#view').empty();
 		buildShowCourse(data.course.id, data.course.name, data.course.image_url, data.course.description, data.students);
+	});
+});
+
+$(".student-list .entitiy-container").click(function(event) {
+	var entity_container = $(event.target).parents('.entitiy-container');
+	var url = entity_container[0].dataset.url;
+	$.get(url, function(data){
+		$('#view').empty();
+		buildShowStudent(data.student.name, data.student.phone, data.student.email, data.student.image_url, data.courses);
 	});
 });
 
@@ -148,30 +157,36 @@ function buildAddCourse(){
    $(course_edit_container).appendTo("#view");
 }
 
-function buildShowStudent(name, phone, email, courses){
+function buildShowStudent(name, phone, email, image_url, courses){
 
-var edit_button = $("<button>", {text: "Edit"});
+	var view = $("#view");
 
-var header = $("<header>", {class: "view-header"})
-					.append($("<span>", {text: "Student"}))
-					.append(edit_button);
+	var edit_button = $("<button>", {text: "Edit"});
 
-var view_top = $("<div>", {class:"view-top"})
-					.append($("<img>", {src: image_url}))
+	var header = $("<header>", {class: "view-header"})
+						.append($("<span>", {text: "Student"}))
+						.append(edit_button)
+						.appendTo(view);
 
-var view_text = $("<div>", {class:"view-text"})
-					.append($("<h1>", {text: name}))
-					.append($("<span>", {text: phone}))
-					.append($("<span>", {text: email}))
-					.appendTo(view_top);
+	var view_top = $("<div>", {class:"view-top"})
+						.append($("<img>", {src: image_url}))
+						.appendTo(view);
 
-var view_bottom = $("<div>", {class:"view-bottom"});
+	var view_text = $("<div>", {class:"view-text"})
+						.append($("<h1>", {text: name}))
+						.append($("<span>", {text: phone}))
+						.append($("<span>", {text: email}))
+						.appendTo(view_top);
 
-$("<div>", {class:"course-entity"})
-					.append($("<img>", {src: course_image_url}))
-					.append($("<span>", {text: course_name}))
-					.appendTo(view_bottom);
+	var view_bottom = $("<div>", {class:"view-bottom"})
+						.appendTo(view);
 
+	for (i = 0; i < courses.length ; i++ ){
+		$("<div>", {class:"course-entity"})
+							.append($("<img>", {src: courses[i].image_url}))
+							.append($("<span>", {text: courses[i].name}))
+							.appendTo(view_bottom);
+	}
 }
 
 
