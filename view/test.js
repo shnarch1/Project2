@@ -12,7 +12,7 @@ $(".student-list .entitiy-container").click(function(event) {
 	var url = entity_container[0].dataset.url;
 	$.get(url, function(data){
 		$('#view').empty();
-		buildShowStudent(data.student.name, data.student.phone, data.student.email, data.student.image_url, data.courses);
+		buildShowStudent(data.student.id, data.student.name, data.student.phone, data.student.email, data.student.image_url, data.courses);
 	});
 });
 
@@ -36,7 +36,6 @@ function buildShowCourse(id, name, image_url, description, students_list){
 									 	var url = event.target.dataset.url;
 									 	$.get(url, function(data){
 									 		buildEditCourse(id, url, data.course.name, data.course.description, data.course.image_url, data.students.length)})
-									 	// buildEditCourse()
 									 }});
 	
 	var header = $("<header>", {class: "view-header"})
@@ -157,11 +156,19 @@ function buildAddCourse(){
    $(course_edit_container).appendTo("#view");
 }
 
-function buildShowStudent(name, phone, email, image_url, courses){
+function buildShowStudent(id, name, phone, email, image_url, courses){
 
 	var view = $("#view");
 
-	var edit_button = $("<button>", {text: "Edit"});
+	var edit_button = $("<button>", {text: "Edit", 
+									 "data-url": "school/student/" + id,
+									 click: function(event){
+									 	var url = event.target.dataset.url;
+									 	$.get(url, function(data){
+									 		buildEditStudent(data.student.name, data.student.phone,
+									 			data.student.email, data.student.image_url, data.student.courses);
+									 	});
+									 }});
 
 	var header = $("<header>", {class: "view-header"})
 						.append($("<span>", {text: "Student"}))
@@ -189,6 +196,44 @@ function buildShowStudent(name, phone, email, image_url, courses){
 	}
 }
 
+function buildEditStudent(name, phone, email, image_url, courses){
+	
+	var view = $("#view");
+	view.empty();
+
+	var edit_student = $("<div>", {class: "student-edit"}).appendTo(view);
+
+	var header = $("<header>", {text: "Edit Student " + name})
+					.appendTo(edit_student);
+
+    var form = $("<form>").appendTo(edit_student);
+
+    var save_button = $("<button>", {text: "Save"});
+    var delete_button = $("<button>", {text: "Delete"});
+
+    var buttons = $("<div>", {class: "student-edit-btns"})
+    				.append(save_button)
+    				.append(delete_button)
+    				.appendTo(form);
+
+	var form_inputs = $("<div>", {class: "student-edit-inputs"})
+					.append($("<input>", {type: "text", name: "student_name", placeholder:"Name", value: name}))
+					.append($("<input>", {type: "text", name: "student_phone", placeholder:"Phone", value: phone}))
+					.append($("<input>", {type: "text", name: "student_email", placeholder:"Email", value: email}))
+					.appendTo(form);
+
+	var edit_footer = $("<div>", {class: "student-edit-footer"})
+					.append($("<img>", {src: image_url}))
+					.appendTo(form);
+
+	var courses = $("<div>", {class: "student-edit-courses"})
+					.appendTo(edit_footer);
+
+	var course_container = $("<div>", {class: "course-container"})
+					.append($("<input>", {type: "checkbox", name: "courses", value:"Course Name"}))
+					.append($("<label>", {text: "Course Name"}))
+					.appendTo(courses);
+}
 
 
 
