@@ -15,13 +15,18 @@ class studentController extends baseController {
 	public function getStudent(Request $request, Response $response, $args){
 		$student_id = $args['id'];
 
-		$student = $this->entityManager->getRepository('Student')->find($student_id);
-		$enrolled_courses = $this->entityManager->createQuery("SELECT c.name, c.description, c.image_url FROM Student s JOIN s.courses c where s.id='{$student_id}'")->getResult();
+		$student = $this->entityManager->getRepository('Student', '*')->find($student_id);
+
+		$all_courses = $this->entityManager->createQuery("SELECT c FROM Course c")->getArrayResult();
+
+		$enrolled_courses = $this->entityManager->createQuery("SELECT c.id, c.name, c.description, c.image_url FROM Student s JOIN s.courses c where s.id='{$student_id}'")->getResult();
+		
 		$num_of_courses = count($enrolled_courses);
 
 		$courses = [];
 		for ($i=0 ; $i < $num_of_courses ; $i++) { 
-			$course = array("name" => $enrolled_courses[$i]['name'],
+			$course = array("id" => $enrolled_courses[$i]['id'],
+							"name" => $enrolled_courses[$i]['name'],
 							"description" => $enrolled_courses[$i]['description'],
 							"image_url" => $enrolled_courses[$i]['image_url']);
 			$courses []= $course;
@@ -33,7 +38,8 @@ class studentController extends baseController {
 								    "phone" => $student->getPhone(),
 								    "email" => $student->getEmail(),
 								    "image_url" => $student->getImageUrl()],
-					  "courses" => $courses);
+					  "enrolled_courses" => $courses,
+					  "all_courses" => $all_courses);
 
 		return $response->withJson($data);
 	}

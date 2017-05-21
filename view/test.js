@@ -12,7 +12,8 @@ $(".student-list .entitiy-container").click(function(event) {
 	var url = entity_container[0].dataset.url;
 	$.get(url, function(data){
 		$('#view').empty();
-		buildShowStudent(data.student.id, data.student.name, data.student.phone, data.student.email, data.student.image_url, data.courses);
+		buildShowStudent(data.student.id, data.student.name, data.student.phone, data.student.email,
+			data.student.image_url, data.enrolled_courses);
 	});
 });
 
@@ -35,7 +36,8 @@ function buildShowCourse(id, name, image_url, description, students_list){
 									 click: function(event){
 									 	var url = event.target.dataset.url;
 									 	$.get(url, function(data){
-									 		buildEditCourse(id, url, data.course.name, data.course.description, data.course.image_url, data.students.length)})
+									 		buildEditCourse(id, url, data.course.name, data.course.description,
+									 			data.course.image_url, data.students.length)})
 									 }});
 	
 	var header = $("<header>", {class: "view-header"})
@@ -166,7 +168,7 @@ function buildShowStudent(id, name, phone, email, image_url, courses){
 									 	var url = event.target.dataset.url;
 									 	$.get(url, function(data){
 									 		buildEditStudent(data.student.name, data.student.phone,
-									 			data.student.email, data.student.image_url, data.student.courses);
+									 			data.student.email, data.student.image_url, data.enrolled_courses, data.all_courses);
 									 	});
 									 }});
 
@@ -196,7 +198,7 @@ function buildShowStudent(id, name, phone, email, image_url, courses){
 	}
 }
 
-function buildEditStudent(name, phone, email, image_url, courses){
+function buildEditStudent(name, phone, email, image_url, enrolled_courses, all_courses){
 	
 	var view = $("#view");
 	view.empty();
@@ -229,10 +231,22 @@ function buildEditStudent(name, phone, email, image_url, courses){
 	var courses = $("<div>", {class: "student-edit-courses"})
 					.appendTo(edit_footer);
 
-	var course_container = $("<div>", {class: "course-container"})
-					.append($("<input>", {type: "checkbox", name: "courses", value:"Course Name"}))
-					.append($("<label>", {text: "Course Name"}))
-					.appendTo(courses);
+	var enrolled_course_ids = [];
+	for (var i =0; i<enrolled_courses.length; i++){
+		console.dir(enrolled_courses);
+		enrolled_course_ids.push(enrolled_courses[i].id);
+	}
+	for (var i =0; i<all_courses.length; i++){
+		var checked = false;
+		if(enrolled_course_ids.includes(all_courses[i].id)){
+			checked = true;
+		}
+		console.log(checked);
+		var course_container = $("<div>", {class: "course-container"})
+				.append($("<input>", {type: "checkbox", name: "courses", value: all_courses[i].id, checked: checked}))
+				.append($("<label>", {text: all_courses[i].name}))
+				.appendTo(courses);
+	}
 }
 
 
