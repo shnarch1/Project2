@@ -167,7 +167,7 @@ function buildShowStudent(id, name, phone, email, image_url, courses){
 									 click: function(event){
 									 	var url = event.target.dataset.url;
 									 	$.get(url, function(data){
-									 		buildEditStudent(data.student.name, data.student.phone,
+									 		buildEditStudent(data.student.id, url, data.student.name, data.student.phone,
 									 			data.student.email, data.student.image_url, data.enrolled_courses, data.all_courses);
 									 	});
 									 }});
@@ -198,7 +198,7 @@ function buildShowStudent(id, name, phone, email, image_url, courses){
 	}
 }
 
-function buildEditStudent(name, phone, email, image_url, enrolled_courses, all_courses){
+function buildEditStudent(id, url, name, phone, email, image_url, enrolled_courses, all_courses){
 	
 	var view = $("#view");
 	view.empty();
@@ -211,7 +211,16 @@ function buildEditStudent(name, phone, email, image_url, enrolled_courses, all_c
     var form = $("<form>").appendTo(edit_student);
 
     var save_button = $("<button>", {text: "Save"});
-    var delete_button = $("<button>", {text: "Delete"});
+    var delete_button = $("<button>", {text: "Delete", "data-url": url}).click(function(event){
+					event.preventDefault();
+					var url = event.target.dataset.url;
+					$.ajax({url: url,
+			    			type: 'DELETE',
+			    			success: function(result) {
+			        			deleteStudent(id);
+		        				$("#view").empty();
+			    			}})});			
+
 
     var buttons = $("<div>", {class: "student-edit-btns"})
     				.append(save_button)
@@ -259,11 +268,28 @@ function deleteCourse(id){
 
 }
 
+function deleteStudent(id){
+
+	var student = findStudentElementById(id);
+	$(student).remove();
+}
+
 function findCourseElementById(id){
 
 	var course = null;
 	$(".course-list .entitiy-container").each(function(index, el) {
 		if(el.dataset.course_id == id){
+			course = el;
+		}		
+	});
+	return course;
+}
+
+function findStudentElementById(id){
+
+	var student = null;
+	$(".student-list .entitiy-container").each(function(index, el) {
+		if(el.dataset.student_id == id){
 			course = el;
 		}		
 	});

@@ -22,7 +22,7 @@
 					<span class="btn-add">+</span>
 				</header>
 				{% for student in students %}
-				<div data-url="school/student/{{ student.getId }}" class="entitiy-container">
+				<div data-url="school/student/{{ student.getId }}" data-student_id="{{ student.getId }}" class="entitiy-container">
 					<img src= {{ student.getImageUrl }}>
 					<div class="description-container">
 						<small>Name: {{ student.name }}</small>

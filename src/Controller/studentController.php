@@ -43,4 +43,11 @@ class studentController extends baseController {
 
 		return $response->withJson($data);
 	}
+
+	public function deleteStudent(Request $request, Response $response, $args){
+		$student_id = $args['id'];
+		$student= $this->entityManager->getRepository('Student')->find($student_id);
+		$this->entityManager->remove($student);
+		$this->entityManager->flush();
+	}
 }

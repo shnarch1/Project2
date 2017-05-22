@@ -71,6 +71,7 @@ $app->delete('/school/course/{id}', 'courseController:deleteCourse');
 $app->post('/school/course/update/{id}', 'courseController:updateCourse');
 
 $app->get('/school/student/{id}', 'studentController:getStudent');
+$app->delete('/school/student/{id}', 'studentController:deleteStudent');
 
 
 $app->run();
