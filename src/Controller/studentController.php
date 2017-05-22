@@ -52,5 +52,42 @@ class studentController extends baseController {
 	}
 
 	public function updateStudent(Request $request, Response $response, $args){
+
+		$files = $request->getUploadedFiles();
+
+		$content = $request->getParams();
+
+		$student_id = $args['id'];
+		$student_name = $content['student_name'];
+		$student_phone = $content['student_phone'];
+		$student_email = $content['student_email'];
+		$courses = $content['courses'];
+
+		$student = $this->entityManager->getRepository('Student')->find($student_id);
+		var_dump(get_class_methods($student->courses));
+		$enrolled_courses = $student->courses->getValues();
+		var_dump($enrolled_courses);
+		for($i=0, $count=count($enrolled_courses); $i < $count; $i++){
+			$student->courses->removeElement($enrolled_courses[$i]);
+		}
+
+		for($i=0, $count=count($courses); $i < $count; $i++){
+			$student->courses->add($courses[$i]);
+		}
+
+		$new_image = $files['new_student_image'];
+		if ($new_image->file != ''){
+			$new_image_file_name = $student_id;
+    		$new_image_url = "public/images/students/" . $student_id;
+    		$new_image->moveTo($new_image_url);	    		
+			$student->setImageUrl($new_image_url);
+		}
+
+		$student->setName($student_name);
+		$student->setPhone($student_phone);
+		$student->setEmail($student_email);
+		$this->entityManager->flush();
+
+		return $response->withRedirect("/school");
 	}
 }

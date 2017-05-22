@@ -72,7 +72,7 @@ $app->post('/school/course/update/{id}', 'courseController:updateCourse');
 
 $app->get('/school/student/{id}', 'studentController:getStudent');
 $app->delete('/school/student/{id}', 'studentController:deleteStudent');
-$app->delete('/school/student/update/{id}', 'studentController:updateStudent');
+$app->post('/school/student/update/{id}', 'studentController:updateStudent');
 
 
 $app->run();

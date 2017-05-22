@@ -208,7 +208,7 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
 	var header = $("<header>", {text: "Edit Student " + name})
 					.appendTo(edit_student);
 
-    var form = $("<form>").appendTo(edit_student);
+    var form = $("<form>", {action: "school/student/update/" + id, method:"post", enctype: "multipart/form-data"}).appendTo(edit_student);
 
     var save_button = $("<button>", {text: "Save"});
     var delete_button = $("<button>", {text: "Delete", "data-url": url}).click(function(event){
@@ -257,7 +257,7 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
 			checked = true;
 		}
 		var course_container = $("<div>", {class: "course-container"})
-				.append($("<input>", {type: "checkbox", name: "courses", value: all_courses[i].id, checked: checked}))
+				.append($("<input>", {type: "checkbox", name: "courses[]", value: all_courses[i].id, checked: checked}))
 				.append($("<label>", {text: all_courses[i].name}))
 				.appendTo(courses);
 	}
