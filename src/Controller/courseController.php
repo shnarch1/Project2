@@ -49,34 +49,28 @@ class courseController extends baseController {
 	public function updateCourse(Request $request, Response $response, $args){
 
 		$files = $request->getUploadedFiles();
+
 		$content = $request->getParams();
 
 		$course_id = $args['id'];
 		$course_name = $content['course_name'];
 		$course_description = $content['course_description'];
-		$new_image = $files['new_course_image'];
-
-		$new_image_file_name = $new_image->getClientFilename();
-    	$new_image_url = "public/images/course/" + $new_image_file_name;
-    	$new_image->moveTo($new_image_url);
-
+		
 		$course = $this->entityManager->getRepository('Course')->find($course_id);
+
+		$new_image = $files['new_course_image'];
+		if ($new_image->file != ''){
+			$new_image_file_name = $new_image->getClientFilename();
+    		$new_image_url = "public/images/course/" + $new_image_file_name;
+    		$new_image->moveTo($new_image_url);	    		
+			$course->setImageUrl($new_image_url);
+		}
 
 		$course->setName($course_name);
 		$course->setDescription($course_description);
-		$course->setImageUrl($new_image_url);
 		$this->entityManager->flush();
 
-		var_dump($args);
-		var_dump(get_class_methods($request));
-		var_dump($request->getParams());
-		var_dump($files);
-		// if (empty($files['newfile'])) {
-  //       	throw new Exception('Expected a newfile');
-
-  //   	}
-
-  //   	$newfile = $files['newfile'];
+		return $response->withRedirect("/school");
 	}
 
 	public function addCourse(Request $request, Response $response){

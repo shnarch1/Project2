@@ -227,10 +227,17 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
     				.append(delete_button)
     				.appendTo(form);
 
+	var input_file = $("<input>", {type: "file", 
+			   name: "new_student_image",
+			   accept: "image/*",
+			   id:"student-new-image"})
+			.change(studentImagePreview);
+
 	var form_inputs = $("<div>", {class: "student-edit-inputs"})
 					.append($("<input>", {type: "text", name: "student_name", placeholder:"Name", value: name}))
 					.append($("<input>", {type: "text", name: "student_phone", placeholder:"Phone", value: phone}))
 					.append($("<input>", {type: "text", name: "student_email", placeholder:"Email", value: email}))
+					.append($(input_file))
 					.appendTo(form);
 
 	var edit_footer = $("<div>", {class: "student-edit-footer"})
@@ -242,7 +249,6 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
 
 	var enrolled_course_ids = [];
 	for (var i =0; i<enrolled_courses.length; i++){
-		console.dir(enrolled_courses);
 		enrolled_course_ids.push(enrolled_courses[i].id);
 	}
 	for (var i =0; i<all_courses.length; i++){
@@ -250,7 +256,6 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
 		if(enrolled_course_ids.includes(all_courses[i].id)){
 			checked = true;
 		}
-		console.log(checked);
 		var course_container = $("<div>", {class: "course-container"})
 				.append($("<input>", {type: "checkbox", name: "courses", value: all_courses[i].id, checked: checked}))
 				.append($("<label>", {text: all_courses[i].name}))
@@ -305,6 +310,20 @@ function courseImagePreview(event){
 		var dataURL = reader.result;
 		var output = $(".course-edit-footer  img");
 		console.dir(output);
+		output[0].src = dataURL;
+	};
+
+	reader.readAsDataURL(input.files[0]);
+};
+
+function studentImagePreview(event){
+	var input = event.target;
+	var reader = new FileReader();
+
+	reader.onload = function(event){
+		
+		var dataURL = reader.result;
+		var output = $(".student-edit-footer  img");
 		output[0].src = dataURL;
 	};
 

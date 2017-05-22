@@ -50,4 +50,7 @@ class studentController extends baseController {
 		$this->entityManager->remove($student);
 		$this->entityManager->flush();
 	}
+
+	public function updateStudent(Request $request, Response $response, $args){
+	}
 }
