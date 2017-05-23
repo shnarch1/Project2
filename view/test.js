@@ -18,6 +18,8 @@ $(".student-list .entitiy-container").click(function(event) {
 });
 
 $(".course-list .btn-add").click(function(event){buildAddCourse()});
+$(".student-list .btn-add").click(function(event){buildAddStudent()});
+
 
 
 function findParentNodeByClassName(dom_object, class_name){
@@ -261,6 +263,52 @@ function buildEditStudent(id, url, name, phone, email, image_url, enrolled_cours
 				.append($("<label>", {text: all_courses[i].name}))
 				.appendTo(courses);
 	}
+}
+
+function buildAddStudent(all_courses){
+	
+	var view = $("#view");
+	view.empty();
+
+	var edit_student = $("<div>", {class: "student-edit"}).appendTo(view);
+
+	var header = $("<header>", {text: "Add Student"})
+					.appendTo(edit_student);
+
+    var form = $("<form>", {action: "school/student", method:"post", enctype: "multipart/form-data"}).appendTo(edit_student);
+
+    var save_button = $("<button>", {text: "Save"});
+
+    var buttons = $("<div>", {class: "student-edit-btns"})
+    				.append(save_button)
+    				.appendTo(form);
+
+	var input_file = $("<input>", {type: "file", 
+			   name: "new_student_image",
+			   accept: "image/*",
+			   id:"student-new-image"})
+			.change(studentImagePreview);
+
+	var form_inputs = $("<div>", {class: "student-edit-inputs"})
+					.append($("<input>", {type: "text", name: "student_name", placeholder:"Name"}))
+					.append($("<input>", {type: "text", name: "student_phone", placeholder:"Phone"}))
+					.append($("<input>", {type: "text", name: "student_email", placeholder:"Email"}))
+					.append($(input_file))
+					.appendTo(form);
+
+	var edit_footer = $("<div>", {class: "student-edit-footer"})
+					.append($("<img>"))
+					.appendTo(form);
+
+	var courses = $("<div>", {class: "student-edit-courses"})
+					.appendTo(edit_footer);
+
+	// for (var i =0; i<all_courses.length; i++){
+	// 	var course_container = $("<div>", {class: "course-container"})
+	// 			.append($("<input>", {type: "checkbox", name: "courses[]", value: all_courses[i].id}))
+	// 			.append($("<label>", {text: all_courses[i].name}))
+	// 			.appendTo(courses);
+	// }
 }
 
 

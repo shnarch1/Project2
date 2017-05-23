@@ -38,6 +38,22 @@ class courseController extends baseController {
 
 	}
 
+
+	public function getAllCourses(Request $request, Response $response){
+		var_dump(get_class_methods($this->entityManager));	
+		// $all_courses = $this->entityManager->getRepository('Course')->findAll();
+		// var_dump(get_class_methods($all_courses));
+		// var_dump($all_courses[0]->getName());
+		// $data = [];
+		// for ($i=0, $count = count($all_courses); $i < $count; $i++ ){
+		// 	$data []=
+		// }
+
+		// $response->withHeader('Content-type', 'application/json');
+		// return $response->withJson($all_courses[0]);
+	}
+
+
 	public function deleteCourse(Request $request, Response $response, $args){
 
 		$course_id = $args['id'];

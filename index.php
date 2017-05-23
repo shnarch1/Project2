@@ -66,6 +66,7 @@ $container['studentController'] = function ($container) {
 $app->get('/school', 'schoolController:showMain');
 
 $app->get('/school/course/{id}', 'courseController:getCourse');
+$app->get('/school/course', 'courseController:getAllCourses');
 $app->post('/school/course', 'courseController:addCourse');
 $app->delete('/school/course/{id}', 'courseController:deleteCourse');
 $app->post('/school/course/update/{id}', 'courseController:updateCourse');
