@@ -40,17 +40,16 @@ class courseController extends baseController {
 
 
 	public function getAllCourses(Request $request, Response $response){
-		var_dump(get_class_methods($this->entityManager));	
-		// $all_courses = $this->entityManager->getRepository('Course')->findAll();
-		// var_dump(get_class_methods($all_courses));
-		// var_dump($all_courses[0]->getName());
-		// $data = [];
-		// for ($i=0, $count = count($all_courses); $i < $count; $i++ ){
-		// 	$data []=
-		// }
-
-		// $response->withHeader('Content-type', 'application/json');
-		// return $response->withJson($all_courses[0]);
+		$all_courses = $this->entityManager->getRepository('Course')->findAll();
+		$data = [];
+		for ($i=0, $count = count($all_courses); $i < $count; $i++ ){
+			$data []= array("id" => $all_courses[$i]->getId(),
+							"name" => $all_courses[$i]->getName(),
+							"description" => $all_courses[$i]->getDescription(),
+							"image_url" => $all_courses[$i]->getImageUrl()
+							);
+		}
+		return $response->withJson($data);
 	}
 
 

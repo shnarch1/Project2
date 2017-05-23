@@ -70,22 +70,19 @@ class studentController extends baseController {
 		}
 
 		$student = $this->entityManager->find('Student', $student_id);
-		// var_dump($student->getName());
-		// var_dump(get_class_methods($student->courses));
+
 		$enrolled_courses = $student->courses->getValues();
-		// var_dump($enrolled_courses);
+
 		for($i=0, $count=count($enrolled_courses); $i < $count; $i++){
 			$student->courses->removeElement($enrolled_courses[$i]);
 		}
 
-		// $this->entityManager->flush();
 
 		for($i=0, $count=count($courses); $i < $count; $i++){
 			$new_course = $this->entityManager->find('Course', $courses[$i]);
 			$student->courses->add($new_course);
 		}
 
-		// $this->entityManager->flush();
 		$new_image = $files['new_student_image'];
 		if ($new_image->file != ''){
 			$new_image_file_name = $student_id;
@@ -97,6 +94,41 @@ class studentController extends baseController {
 		$student->setName($student_name);
 		$student->setPhone($student_phone);
 		$student->setEmail($student_email);
+		$this->entityManager->flush();
+
+		return $response->withRedirect("/school");
+	}
+
+	public function addStudent(Request $request, Response $response){
+		$files = $request->getUploadedFiles();
+		$content = $request->getParams();
+
+		$student = new Student();
+		$student->setName($content['student_name']);
+		$student->setPhone($content['student_phone']);
+		$student->setEmail($content['student_email']);
+
+		if (array_key_exists ('courses' , $content)){
+			$courses = $content['courses'];
+		}
+		else{
+			$courses = null;
+		}
+
+		for($i=0, $count=count($courses); $i < $count; $i++){
+			$new_course = $this->entityManager->find('Course', $courses[$i]);
+			$student->courses->add($new_course);
+		}
+
+		$new_image = $files['new_student_image'];
+		if ($new_image->file != ''){
+			$new_image_file_name = time();
+    		$new_image_url = "public/images/students/" . $new_image_file_name;
+    		$new_image->moveTo($new_image_url);	    		
+			$student->setImageUrl($new_image_url);
+		}
+
+		$this->entityManager->persist($student);
 		$this->entityManager->flush();
 
 		return $response->withRedirect("/school");

@@ -18,7 +18,9 @@ $(".student-list .entitiy-container").click(function(event) {
 });
 
 $(".course-list .btn-add").click(function(event){buildAddCourse()});
-$(".student-list .btn-add").click(function(event){buildAddStudent()});
+$(".student-list .btn-add").click(function(event){
+			$.get("school/course", function(data){buildAddStudent(data)});
+});
 
 
 
@@ -277,7 +279,7 @@ function buildAddStudent(all_courses){
 
     var form = $("<form>", {action: "school/student", method:"post", enctype: "multipart/form-data"}).appendTo(edit_student);
 
-    var save_button = $("<button>", {text: "Save"});
+    var save_button = $("<input>", {type: "submit", value: "Save"});
 
     var buttons = $("<div>", {class: "student-edit-btns"})
     				.append(save_button)
@@ -303,12 +305,12 @@ function buildAddStudent(all_courses){
 	var courses = $("<div>", {class: "student-edit-courses"})
 					.appendTo(edit_footer);
 
-	// for (var i =0; i<all_courses.length; i++){
-	// 	var course_container = $("<div>", {class: "course-container"})
-	// 			.append($("<input>", {type: "checkbox", name: "courses[]", value: all_courses[i].id}))
-	// 			.append($("<label>", {text: all_courses[i].name}))
-	// 			.appendTo(courses);
-	// }
+	for (var i =0; i<all_courses.length; i++){
+		var course_container = $("<div>", {class: "course-container"})
+				.append($("<input>", {type: "checkbox", name: "courses[]", value: all_courses[i].id}))
+				.append($("<label>", {text: all_courses[i].name}))
+				.appendTo(courses);
+	}
 }
 
 
