@@ -359,7 +359,7 @@ function buildEditAdmin(id, name, phone, email, role, image_url){
 			   name: "new_admin_image",
 			   accept: "image/*",
 			   id:"admin-new-image"})
-			.change(studentImagePreview);
+			.change(adminImagePreview);
 
 	var form_inputs = $("<div>", {class: "admin-edit-inputs"})
 					.append($("<input>", {type: "text", name: "admin_name", placeholder:"Name", value: name}))
@@ -437,6 +437,20 @@ function studentImagePreview(event){
 		
 		var dataURL = reader.result;
 		var output = $(".student-edit-footer  img");
+		output[0].src = dataURL;
+	};
+
+	reader.readAsDataURL(input.files[0]);
+};
+
+function adminImagePreview(event){
+	var input = event.target;
+	var reader = new FileReader();
+
+	reader.onload = function(event){
+		
+		var dataURL = reader.result;
+		var output = $(".admin-edit-footer  img");
 		output[0].src = dataURL;
 	};
 
