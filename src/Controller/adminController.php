@@ -38,6 +38,14 @@ class adminController extends baseController {
 		return $response->withJson($data);
 	}
 
+
+	public function deleteAdmin(Request $request, Response $response, $args){
+		$admin_id = $args['id'];
+		$admin= $this->entityManager->getRepository('Administrator')->find($admin_id);
+		$this->entityManager->remove($admin);
+		$this->entityManager->flush();
+	}
+
 }
 
  ?>

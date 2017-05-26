@@ -345,7 +345,7 @@ function buildEditAdmin(id, name, phone, email, role, image_url){
 					$.ajax({url: url,
 			    			type: 'DELETE',
 			    			success: function(result) {
-			        			deleteStudent(id);
+			        			deleteAdmin(id);
 		        				$("#view").empty();
 			    			}})});			
 
@@ -392,6 +392,12 @@ function deleteStudent(id){
 	$(student).remove();
 }
 
+function deleteAdmin(id){
+
+	var admin = findAdminElementById(id);
+	$(admin).remove();
+}
+
 function findCourseElementById(id){
 
 	var course = null;
@@ -412,6 +418,17 @@ function findStudentElementById(id){
 		}		
 	});
 	return course;
+}
+
+function findAdminElementById(id){
+
+	var admin = null;
+	$(".admin-list .entitiy-container").each(function(index, el) {
+		if(el.dataset.admin_id == id){
+			admin = el;
+		}		
+	});
+	return admin;
 }
 
 function courseImagePreview(event){
