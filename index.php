@@ -11,6 +11,7 @@ require 'vendor/autoload.php';
 require 'src/Controller/schoolController.php';
 require 'src/Controller/courseController.php';
 require 'src/Controller/studentController.php';
+require 'src/Controller/adminController.php';
 
 $app = new \Slim\App;
 $container = $app->getContainer();
@@ -55,6 +56,10 @@ $container['schoolController'] = function ($container) {
 	return new schoolController($container);
 };
 
+$container['adminController'] = function ($container) {
+	return new adminController($container);
+};
+
 $container['courseController'] = function ($container) {
 	return new courseController($container);
 };
@@ -64,6 +69,7 @@ $container['studentController'] = function ($container) {
 };
 
 $app->get('/school', 'schoolController:showMain');
+$app->get('/administration', 'adminController:showMain');
 
 $app->get('/school/course/{id}', 'courseController:getCourse');
 $app->get('/school/course', 'courseController:getAllCourses');
@@ -75,6 +81,8 @@ $app->get('/school/student/{id}', 'studentController:getStudent');
 $app->delete('/school/student/{id}', 'studentController:deleteStudent');
 $app->post('/school/student/update/{id}', 'studentController:updateStudent');
 $app->post('/school/student', 'studentController:addStudent');
+
+$app->get('/school/admin/{id}', 'adminController:getAdmin');
 
 
 $app->run();

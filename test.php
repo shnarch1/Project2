@@ -26,6 +26,15 @@
 	$entityManager->persist($student4);
 	$entityManager->flush();
 
+	$admin1 = new Administrator("admin1", "administrator", "0545540121", "admin1@gmail.com", "password1", "/public/images/admins/default.jpg");
+	$admin2 = new Administrator("admin2", "administrator", "123456789", "admin2@gmail.com", "password1", "/public/images/admins/default.jpg");
+	$admin3 = new Administrator("admin3", "administrator", "000000000", "admin3@gmail.com", "password1", "/public/images/admins/default.jpg");
+
+	$entityManager->persist($admin1);
+	$entityManager->persist($admin2);
+	$entityManager->persist($admin3);
+	$entityManager->flush();
+
 	$course = $entityManager->getRepository('Course')->find(1);
 	
 	$student = $entityManager->getRepository('Student')->find(1);

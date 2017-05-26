@@ -17,6 +17,16 @@ $(".student-list .entitiy-container").click(function(event) {
 	});
 });
 
+$(".admin-list .entitiy-container").click(function(event) {
+	var entity_container = $(event.target).parents('.entitiy-container');
+	var url = entity_container[0].dataset.url;
+	$.get(url, function(data){
+		$('#view').empty();
+		buildEditAdmin(data.admin.id, data.admin.name, data.admin.phone, data.admin.email,
+			data.admin.role, data.admin.image_url);
+	});
+});
+
 $(".course-list .btn-add").click(function(event){buildAddCourse()});
 $(".student-list .btn-add").click(function(event){
 			$.get("school/course", function(data){buildAddStudent(data)});
@@ -312,6 +322,59 @@ function buildAddStudent(all_courses){
 				.appendTo(courses);
 	}
 }
+
+function buildEditAdmin(id, name, phone, email, role, image_url){
+	
+	var view = $("#view");
+	view.empty();
+
+	var edit_admin = $("<div>", {class: "admin-edit"}).appendTo(view);
+
+	var header = $("<header>", {text: "Edit Admin " + name})
+					.appendTo(edit_admin);
+
+    var form = $("<form>", {action: "school/admin/update/" + id, 
+    						method:"post",
+    						enctype: "multipart/form-data"})
+    						.appendTo(edit_admin);
+
+    var save_button = $("<button>", {text: "Save"});
+    var delete_button = $("<button>", {text: "Delete", "data-url": "/school/admin/" + id}).click(function(event){
+					event.preventDefault();
+					var url = event.target.dataset.url;
+					$.ajax({url: url,
+			    			type: 'DELETE',
+			    			success: function(result) {
+			        			deleteStudent(id);
+		        				$("#view").empty();
+			    			}})});			
+
+
+    var buttons = $("<div>", {class: "admin-edit-btns"})
+    				.append(save_button)
+    				.append(delete_button)
+    				.appendTo(form);
+
+	var input_file = $("<input>", {type: "file", 
+			   name: "new_admin_image",
+			   accept: "image/*",
+			   id:"admin-new-image"})
+			.change(studentImagePreview);
+
+	var form_inputs = $("<div>", {class: "admin-edit-inputs"})
+					.append($("<input>", {type: "text", name: "admin_name", placeholder:"Name", value: name}))
+					.append($("<input>", {type: "text", name: "admin_phone", placeholder:"Phone", value: phone}))
+					.append($("<input>", {type: "text", name: "admin_email", placeholder:"Email", value: email}))
+					.append($("<input>", {type: "text", name: "admin_role", placeholder:"Role", value: role}))
+					.append($(input_file))
+					.appendTo(form);
+
+	var edit_footer = $("<div>", {class: "admin-edit-footer"})
+					.append($("<img>", {src: image_url}))
+					.appendTo(form);
+}
+
+
 
 
 

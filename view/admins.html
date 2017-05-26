@@ -1,0 +1,20 @@
+<section id="entities">
+
+	<div class="entities-list admin-list">
+		<header>
+			<span>Administrators</span>
+			<div class="btn-add">+</div>
+		</header>
+		{% for admin in admins %}
+		<div data-url="school/admin/{{ admin.getId}}" class="entitiy-container">
+			<img src={{ admin.getImageUrl }}>
+			<div class="description-container">
+				<small>{{admin.name}}, {{admin.role}}</small>
+				<small>{{admin.phone}}</small>
+				<small>{{admin.email}}</small>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	
+</section>

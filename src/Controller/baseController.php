@@ -1,8 +1,8 @@
 <?php 
 
 use \Slim\Container as Container;
-require 'src/Entity/Student.php';
-require 'src/Entity/Course.php';
+require_once 'src/Entity/Student.php';
+require_once 'src/Entity/Course.php';
 
 class baseController
 {
