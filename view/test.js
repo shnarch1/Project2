@@ -31,6 +31,7 @@ $(".course-list .btn-add").click(function(event){buildAddCourse()});
 $(".student-list .btn-add").click(function(event){
 			$.get("school/course", function(data){buildAddStudent(data)});
 });
+$(".admin-list .btn-add").click(function(event){buildAddAdmin()});
 
 
 
@@ -371,6 +372,46 @@ function buildEditAdmin(id, name, phone, email, role, image_url){
 
 	var edit_footer = $("<div>", {class: "admin-edit-footer"})
 					.append($("<img>", {src: image_url}))
+					.appendTo(form);
+}
+
+function buildAddAdmin(){
+	
+	var view = $("#view");
+	view.empty();
+
+	var edit_admin = $("<div>", {class: "admin-edit"}).appendTo(view);
+
+	var header = $("<header>", {text: "Add Admin"})
+					.appendTo(edit_admin);
+
+    var form = $("<form>", {action: "school/admin", 
+    						method:"post",
+    						enctype: "multipart/form-data"})
+    						.appendTo(edit_admin);
+
+    var save_button = $("<button>", {text: "Save"});		
+
+    var buttons = $("<div>", {class: "admin-edit-btns"})
+    				.append(save_button)
+    				.appendTo(form);
+
+	var input_file = $("<input>", {type: "file", 
+			   name: "new_admin_image",
+			   accept: "image/*",
+			   id:"admin-new-image"})
+			.change(adminImagePreview);
+
+	var form_inputs = $("<div>", {class: "admin-edit-inputs"})
+					.append($("<input>", {type: "text", name: "admin_name", placeholder:"Name"}))
+					.append($("<input>", {type: "text", name: "admin_phone", placeholder:"Phone"}))
+					.append($("<input>", {type: "text", name: "admin_email", placeholder:"Email"}))
+					.append($("<input>", {type: "text", name: "admin_role", placeholder:"Role"}))
+					.append($(input_file))
+					.appendTo(form);
+
+	var edit_footer = $("<div>", {class: "admin-edit-footer"})
+					.append($("<img>"))
 					.appendTo(form);
 }
 

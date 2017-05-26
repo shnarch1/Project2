@@ -37,7 +37,7 @@ Administrator:
     password:
       type: string
       length: 255
-      nullable: false
+      nullable: true
 
     image_url:
       type: string

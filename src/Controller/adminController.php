@@ -46,6 +46,62 @@ class adminController extends baseController {
 		$this->entityManager->flush();
 	}
 
+	public function updateAdmin(Request $request, Response $response, $args){
+		
+		$files = $request->getUploadedFiles();
+
+		$content = $request->getParams();
+
+		$admin_id = $args['id'];
+		$admin_name = $content['admin_name'];
+		$admin_phone = $content['admin_phone'];
+		$admin_email = $content['admin_email'];
+		$admin_role = $content['admin_role'];
+
+		$admin = $this->entityManager->find('Administrator', $admin_id);
+
+		$new_image = $files['new_admin_image'];
+		if ($new_image->file != ''){
+			$new_image_file_name = $admin_id;
+    		$new_image_url = "public/images/admin/" . $admin_id;
+    		$new_image->moveTo($new_image_url);	    		
+			$student->setImageUrl($new_image_url);
+		}
+
+		$admin->setName($admin_name);
+		$admin->setPhone($admin_phone);
+		$admin->setEmail($admin_email);
+		$admin->setRole($admin_role);
+		$this->entityManager->flush();
+
+		return $response->withRedirect("/administration");
+	}
+
+		public function addAdmin(Request $request, Response $response){
+
+		$files = $request->getUploadedFiles();
+		$content = $request->getParams();
+
+		$admin = new Administrator();
+		$admin->setName($content['admin_name']);
+		$admin->setPhone($content['admin_phone']);
+		$admin->setEmail($content['admin_email']);
+		$admin->setRole($content['admin_role']);
+
+		$new_image = $files['new_admin_image'];
+		if ($new_image->file != ''){
+			$new_image_file_name = time();
+    		$new_image_url = "public/images/admins/" . $new_image_file_name;
+    		$new_image->moveTo($new_image_url);	    		
+			$admin->setImageUrl($new_image_url);
+		}
+
+		$this->entityManager->persist($admin);
+		$this->entityManager->flush();
+
+		return $response->withRedirect("/administration");
+	}
+
 }
 
  ?>

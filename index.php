@@ -83,7 +83,9 @@ $app->post('/school/student/update/{id}', 'studentController:updateStudent');
 $app->post('/school/student', 'studentController:addStudent');
 
 $app->get('/school/admin/{id}', 'adminController:getAdmin');
+$app->post('/school/admin', 'adminController:addAdmin');
 $app->delete('/school/admin/{id}', 'adminController:deleteAdmin');
+$app->post('/school/admin/update/{id}', 'adminController:updateAdmin');
 
 
 $app->run();
