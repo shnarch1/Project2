@@ -1,5 +1,11 @@
 Administrator:
   type: entity
+  manyToOne:
+    role:
+      targetEntity: Role
+      joinColumn:
+        name: role_id
+        referencedColumnName: id
   table: administrators
   
   id:  
@@ -15,11 +21,6 @@ Administrator:
     name:
       type: string
       length: 20
-      nullable: false
-
-    role:
-      type: string
-      length: 7
       nullable: false
     
     phone:

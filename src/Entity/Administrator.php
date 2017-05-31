@@ -10,10 +10,9 @@ class Administrator
     private $password;
     private $image_url;
 	
-	function __construct($name=null, $role=null, $phone=null, $email=null, $password=null, $image_url=null)
+	function __construct($name=null, $phone=null, $email=null, $password=null, $image_url=null)
 	{
 		$this->name = $name;
-		$this->role = $role;
 		$this->phone = $phone;
 		$this->email = $email;
 		$this->password = $password;

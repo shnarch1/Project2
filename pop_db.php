@@ -1,8 +1,15 @@
 <?php 
 
 	require_once "bootstrap.php";
-	// include 'src/Entity/Student.php';
-	// include 'src/Entity/Course.php';
+
+	$role1 = new Role("owner");
+	$role2 = new Role("manager");
+	$role3 = new Role("sales");
+
+	$entityManager->persist($role1);
+	$entityManager->persist($role2);
+	$entityManager->persist($role3);
+	$entityManager->flush();
 
 	$course1 = new Course("Php", "PHP is a server scripting language, and a powerful tool for making dynamic and interactive Web pages.PHP is a widely-used, free, and efficient alternative to competitors such as Microsoft's ASP.", "/public/images/courses/php7.png");
 	$course2 = new Course("JavaScript", "JavaScript is the programming language of HTML and the Web. JavaScript is easy to learn. This tutorial will teach you JavaScript from basic to advanced.", "/public/images/courses/js.png");
@@ -26,13 +33,17 @@
 	$entityManager->persist($student4);
 	$entityManager->flush();
 
-	$admin1 = new Administrator("admin1", "administrator", "0545540121", "admin1@gmail.com", "password1", "/public/images/admins/default.jpg");
-	$admin2 = new Administrator("admin2", "administrator", "123456789", "admin2@gmail.com", "password1", "/public/images/admins/default.jpg");
-	$admin3 = new Administrator("admin3", "administrator", "000000000", "admin3@gmail.com", "password1", "/public/images/admins/default.jpg");
-
+	$admin1 = new Administrator("admin1", "0545540121", "admin1@gmail.com", "password1", "/public/images/admins/default.jpg");
+	$admin2 = new Administrator("admin2", "123456789", "admin2@gmail.com", "password1", "/public/images/admins/default.jpg");
+	$admin3 = new Administrator("admin3", "000000000", "admin3@gmail.com", "password1", "/public/images/admins/default.jpg");
 	$entityManager->persist($admin1);
 	$entityManager->persist($admin2);
 	$entityManager->persist($admin3);
+	$entityManager->flush();
+
+	$admin = $entityManager->getRepository('Administrator')->find(1);
+	$role_manager = $entityManager->getRepository('Role')->find(2);
+	$admin->setRole($role_manager);
 	$entityManager->flush();
 
 	$course = $entityManager->getRepository('Course')->find(1);
@@ -73,6 +84,9 @@
 	$student = $entityManager->getRepository('Student')->find(4);
 	$student->courses->add($course);
 	$entityManager->flush();
+
+
+
 
 
 

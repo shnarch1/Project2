@@ -1,0 +1,18 @@
+Role:
+  type: entity
+  table: roles
+  
+  id:  
+    id:
+      type: smallint
+      nullable: false
+      generator:
+        strategy: AUTO
+      options:
+        unsigned: true
+  
+  fields: 
+    name:
+      type: string
+      length: 10
+      nullable: false

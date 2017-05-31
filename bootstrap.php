@@ -7,6 +7,7 @@ require_once "vendor/autoload.php";
 include 'src/Entity/Course.php';
 include 'src/Entity/Administrator.php';
 include 'src/Entity/Student.php';
+include 'src/Entity/Role.php';
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
 $isDevMode = true;
