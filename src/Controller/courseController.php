@@ -69,7 +69,7 @@ class courseController extends baseController {
 
 	public function deleteCourse(Request $request, Response $response, $args){
 
-		if(!isLoggedIn()){
+		if(!isLoggedIn() || !$this->isAuth(__FUNCTION__)){
 			return unauthorized($response);
 		}
 
@@ -81,7 +81,7 @@ class courseController extends baseController {
 
 	public function updateCourse(Request $request, Response $response, $args){
 
-		if(!isLoggedIn()){
+		if(!isLoggedIn() || !$this->isAuth(__FUNCTION__)){
 			return unauthorized($response);
 		}
 
@@ -112,7 +112,7 @@ class courseController extends baseController {
 
 	public function addCourse(Request $request, Response $response){
 		
-		if(!isLoggedIn()){
+		if(!isLoggedIn() || !$this->isAuth(__FUNCTION__)){
 			return unauthorized($response);
 		}
 
@@ -134,6 +134,35 @@ class courseController extends baseController {
 		$this->entityManager->flush();
 
 		return $response->withRedirect("/school");
+	}
+
+	private function isAuth($method){
+		switch ($method) {
+		    case 'deleteCourse':
+		        if ($_SESSION['role'] != "sales"){
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }
+	        case 'updateCourse':
+		        if ($_SESSION['role'] != "sales"){
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }	        
+	        case 'addCourse':
+		        if ($_SESSION['role'] != "sales"){
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }
+	        default:
+	        	return false;
+		       
+		}
 	}
 }
 
