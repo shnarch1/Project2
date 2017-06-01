@@ -3,7 +3,9 @@
 			<div class="entities-list course-list">
 				<header>
 					<span>Courses</span>
-					<div class="btn-add">+</div>
+					{%if user.role != "sales"%}
+						<div class="btn-add">+</div>
+					{%endif%}
 				</header>
 				{% for course in courses %}
 				<div data-url="school/course/{{ course.getId}}" data-course_id="{{ course.getId }}" class="entitiy-container">
