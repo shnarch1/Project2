@@ -33,16 +33,29 @@
 	$entityManager->persist($student4);
 	$entityManager->flush();
 
-	$admin1 = new Administrator("admin1", "0545540121", "admin1@gmail.com", "password1", "/public/images/admins/default.jpg");
-	$admin2 = new Administrator("admin2", "123456789", "admin2@gmail.com", "password1", "/public/images/admins/default.jpg");
-	$admin3 = new Administrator("admin3", "000000000", "admin3@gmail.com", "password1", "/public/images/admins/default.jpg");
+	$pass = password_hash ( "pass1" , PASSWORD_DEFAULT);
+	$admin1 = new Administrator("admin1", "0545540121", "admin1@gmail.com", $pass, "/public/images/admins/default.jpg");
+	$pass = password_hash ( "pass2" , PASSWORD_DEFAULT);
+	$admin2 = new Administrator("admin2", "123456789", "admin2@gmail.com", $pass, "/public/images/admins/default.jpg");
+	$pass = password_hash ( "pass3" , PASSWORD_DEFAULT);
+	$admin3 = new Administrator("admin3", "000000000", "admin3@gmail.com", $pass , "/public/images/admins/default.jpg");
 	$entityManager->persist($admin1);
 	$entityManager->persist($admin2);
 	$entityManager->persist($admin3);
 	$entityManager->flush();
 
 	$admin = $entityManager->getRepository('Administrator')->find(1);
+	$role_manager = $entityManager->getRepository('Role')->find(1);
+	$admin->setRole($role_manager);
+	$entityManager->flush();
+
+	$admin = $entityManager->getRepository('Administrator')->find(2);
 	$role_manager = $entityManager->getRepository('Role')->find(2);
+	$admin->setRole($role_manager);
+	$entityManager->flush();
+
+	$admin = $entityManager->getRepository('Administrator')->find(3);
+	$role_manager = $entityManager->getRepository('Role')->find(3);
 	$admin->setRole($role_manager);
 	$entityManager->flush();
 
@@ -84,6 +97,7 @@
 	$student = $entityManager->getRepository('Student')->find(4);
 	$student->courses->add($course);
 	$entityManager->flush();
+
 
 
 

@@ -5,6 +5,9 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+// require 'functions.php';
+
+session_start();
 
 class courseController extends baseController {
 
@@ -12,6 +15,10 @@ class courseController extends baseController {
 		parent::__construct($container);
 	}
 	public function getCourse(Request $request, Response $response, $args){
+
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
 
 		$course_id = $args['id'];
 		$course = $this->entityManager->getRepository('Course')->find($course_id);
@@ -31,8 +38,10 @@ class courseController extends baseController {
 		$data = array("course" => ["id" => $course->getId(),
 								   "name" => $course->getName(),
 								   "description" => $course->getDescription(),
-								   "image_url" => $course->getImageUrl()],
-					  "students" => $students);
+								   "image_url" => $course->getImageUrl(),
+								   ],
+					  "students" => $students,
+					  "role" => $_SESSION['role']);
 
 		return $response->withJson($data);
 
@@ -40,6 +49,11 @@ class courseController extends baseController {
 
 
 	public function getAllCourses(Request $request, Response $response){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$all_courses = $this->entityManager->getRepository('Course')->findAll();
 		$data = [];
 		for ($i=0, $count = count($all_courses); $i < $count; $i++ ){
@@ -55,6 +69,10 @@ class courseController extends baseController {
 
 	public function deleteCourse(Request $request, Response $response, $args){
 
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$course_id = $args['id'];
 		$course = $this->entityManager->getRepository('Course')->find($course_id);
 		$this->entityManager->remove($course);
@@ -62,6 +80,10 @@ class courseController extends baseController {
 	}
 
 	public function updateCourse(Request $request, Response $response, $args){
+
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
 
 		$files = $request->getUploadedFiles();
 
@@ -89,6 +111,11 @@ class courseController extends baseController {
 	}
 
 	public function addCourse(Request $request, Response $response){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$files = $request->getUploadedFiles();
 		$content = $request->getParams();
 

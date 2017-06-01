@@ -6,6 +6,7 @@ require 'src/Entity/Administrator.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+session_start();
 
 class adminController extends baseController {
 
@@ -14,23 +15,48 @@ class adminController extends baseController {
 	}
 	public function showMain(Request $request, Response $response){
 
+		if(!isLoggedIn()  || !$this->isAuth(__FUNCTION__)){
+			return unauthorized($response);
+		}
+
+		$user = ["name" => $_SESSION['name'],
+				 "role" => $_SESSION['role']];
+
 		$admins = $this->entityManager->getRepository('Administrator')->findAll();
+
+		if($user['role'] == "manager"){
+			for($i = 0, $count=count($admins); $i<$count; $i++){
+				if ($admins[$i]->getRole()->getName() == "owner"){
+					array_splice($admins, $i, 1);
+					break;
+				}
+			}
+		}
 
 		return $this->view->render($response, "main.html", [
            		"sections" => ['admins.html', 'view.html'],
-           		"admins" => $admins
+           		"admins" => $admins,
+           		"user" => $user
             ]
         );
 	}
 
 	public function getAdmin(Request $request, Response $response, $args){
-		$admin_id = $args['id'];
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
 
+		$admin_id = $args['id'];
 		$admin = $this->entityManager->getRepository('Administrator', '*')->find($admin_id);
+
+		if(!$this->isAuth(__FUNCTION__, $admin)){
+			return unauthorized($response);
+		}
 
 		$data = array("admin" => ["id" => $admin->getId(),
 								  "name" => $admin->getName(),
-								  "role" => $admin->getRole(),
+								  "role" => $admin->getRole()->getName(),
 								  "phone" => $admin->getPhone(),
 								  "email" => $admin->getEmail(),
 								  "image_url" => $admin->getImageUrl()]);
@@ -40,25 +66,45 @@ class adminController extends baseController {
 
 
 	public function deleteAdmin(Request $request, Response $response, $args){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$admin_id = $args['id'];
 		$admin= $this->entityManager->getRepository('Administrator')->find($admin_id);
-		$this->entityManager->remove($admin);
-		$this->entityManager->flush();
+		if(!$this->isAuth(__FUNCTION__, $admin)){
+			return unauthorized($response);
+		}
+		else{
+			$this->entityManager->remove($admin);
+			$this->entityManager->flush();		
+		}
 	}
 
 	public function updateAdmin(Request $request, Response $response, $args){
 		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
+		$admin_id = $args['id'];
+		$admin = $this->entityManager->find('Administrator', $admin_id);
+
+		if(!$this->isAuth(__FUNCTION__, $admin)){
+			return unauthorized($response);
+		}
+
 		$files = $request->getUploadedFiles();
 
 		$content = $request->getParams();
 
-		$admin_id = $args['id'];
 		$admin_name = $content['admin_name'];
 		$admin_phone = $content['admin_phone'];
 		$admin_email = $content['admin_email'];
-		$admin_role = $content['admin_role'];
+		$admin_role = $this->entityManager->getRepository('Role')->findOneBy(Array("name" => $content['admin_role']));
 
-		$admin = $this->entityManager->find('Administrator', $admin_id);
+		
 
 		$new_image = $files['new_admin_image'];
 		if ($new_image->file != ''){
@@ -71,13 +117,19 @@ class adminController extends baseController {
 		$admin->setName($admin_name);
 		$admin->setPhone($admin_phone);
 		$admin->setEmail($admin_email);
-		$admin->setRole($admin_role);
+		if ($_SESSION['role'] == "manager" && $_SESSION['id'] != $admin->getId() ){
+			$admin->setRole($admin_role);
+		}
 		$this->entityManager->flush();
 
 		return $response->withRedirect("/administration");
 	}
 
-		public function addAdmin(Request $request, Response $response){
+	public function addAdmin(Request $request, Response $response){
+
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
 
 		$files = $request->getUploadedFiles();
 		$content = $request->getParams();
@@ -101,6 +153,78 @@ class adminController extends baseController {
 
 		return $response->withRedirect("/administration");
 	}
+
+	private function isAuth($method, $admin=null){
+		switch ($method) {
+		    case 'showMain':
+		        if ($_SESSION['role'] != "sales"){
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }
+	        case 'getAdmin':
+		        if ($_SESSION['role'] != "sales"){
+		        	if (($_SESSION['role'] == "manager")){
+		        		if($admin->getRole()->getName() == 'owner'){
+		        			return false;
+		        		}
+		        		else{
+		        			return true;
+		        		}
+		        	}
+		        	else{
+		        		return true;
+		        	}
+		        }
+		        else{
+		        	return false;
+		        }
+	        case 'deleteAdmin':
+	        	if ($_SESSION['role'] != "sales"){
+		        	if (($_SESSION['role'] == "manager")){
+		        		if($_SESSION['id'] == $admin->getId() || $admin->getRole()->getName() == 'owner'){
+		        			return false;
+		        		}
+		        		else{
+		        			return true;
+		        		}	
+		        	}
+		        	else{
+		        		return true;
+		        	}
+		        }
+		        else{
+		        	return false;
+		        }
+	        case 'updateAdmin':
+	        	if ($_SESSION['role'] != "sales"){
+		        		if($_SESSION['role'] == "manager"){
+		        			if ($admin->getRole()->getName() == "owner"){
+		        				return false;
+		        			}
+		        			else{
+		        				return true;
+		        			}
+		        		}
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }
+	        case 'addAdmin':
+	        	if ($_SESSION['role'] != "sales"){
+		        	return true;
+		        }
+		        else{
+		        	return false;
+		        }
+		    default:
+		    	return false;
+	}	
+	}
+
+
 
 }
 

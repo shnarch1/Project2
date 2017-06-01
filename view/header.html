@@ -3,11 +3,13 @@
 			<div id="menu">
 				<img src="http://opensourceschoolsoftware.com/images/OS.png" width=50px> |
 				<a href="/school">School</a> |
-				<a href="/administration">Administration</a>
+				{% if user.role != "sales" %}
+					<a href="/administration">Administration</a>
+				{% endif %}
 			</div>
 			<div id="signed-user">
-				<small>Avi Schnarch, Manager</small> |
-				<a href="/js/">logout</a> |
+				<small>{{user.name}}, {{user.role}}</small> |
+				<a href="/logout">logout</a> |
 				<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" width=50px>
 			</div>
 		</nav>

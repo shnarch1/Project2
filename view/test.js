@@ -3,7 +3,7 @@ $(".course-list .entitiy-container").click(function(event) {
 	var url = entity_container.dataset.url;
 	$.get(url, function(data){
 		$('#view').empty();
-		buildShowCourse(data.course.id, data.course.name, data.course.image_url, data.course.description, data.students);
+		buildShowCourse(data.course.id, data.course.name, data.course.image_url, data.course.description, data.role, data.students);
 	});
 });
 
@@ -43,22 +43,23 @@ function findParentNodeByClassName(dom_object, class_name){
     return dom_object;
 }
 
-function buildShowCourse(id, name, image_url, description, students_list){
+function buildShowCourse(id, name, image_url, description, role, students_list){
 	var num_of_students = students_list.length;
+	
+	var header = $("<header>", {class: "view-header"})
+								.append($("<span>").text(name))
+							    .appendTo('#view');
 
-	var edit_button = $("<button>", {text: "Edit",
+	if( role != "sales"){
+		var edit_button = $("<button>", {text: "Edit",
 									 "data-url": "school/course/" + id,
 									 click: function(event){
 									 	var url = event.target.dataset.url;
 									 	$.get(url, function(data){
 									 		buildEditCourse(id, url, data.course.name, data.course.description,
 									 			data.course.image_url, data.students.length)})
-									 }});
-	
-	var header = $("<header>", {class: "view-header"})
-								.append($("<span>").text(name))
-							    .append($(edit_button))
-							    .appendTo('#view');
+									 }}).appendTo(header);
+	}
     
 
 	var content = $("<div>", {class: "view-top"})

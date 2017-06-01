@@ -1,5 +1,7 @@
 <?php 
 
+require 'Role.php';
+
 class Administrator
 {
 	private $id = null;

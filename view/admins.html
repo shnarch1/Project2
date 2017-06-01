@@ -9,7 +9,7 @@
 		<div data-url="school/admin/{{ admin.getId}}" data-admin_id="{{ admin.getId }}" class="entitiy-container">
 			<img src={{ admin.getImageUrl }}>
 			<div class="description-container">
-				<small>{{admin.name}}, {{admin.role}}</small>
+				<small>{{admin.name}}, {{admin.role.getName()}}</small>
 				<small>{{admin.phone}}</small>
 				<small>{{admin.email}}</small>
 			</div>

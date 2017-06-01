@@ -4,7 +4,7 @@ use \Slim\Container as Container;
 require_once 'src/Entity/Student.php';
 require_once 'src/Entity/Course.php';
 
-class baseController
+abstract class baseController
 {
 	protected $container;
 	protected $view;
@@ -16,6 +16,8 @@ class baseController
 		$this->view = $container['view'];
 		$this->entityManager = $container['em'];
 	}
+
+	// abstract protected function isAuthorized();
 }
 
  ?>

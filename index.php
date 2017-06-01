@@ -12,6 +12,7 @@ require 'src/Controller/schoolController.php';
 require 'src/Controller/courseController.php';
 require 'src/Controller/studentController.php';
 require 'src/Controller/adminController.php';
+require 'src/Controller/loginController.php';
 
 $app = new \Slim\App;
 $container = $app->getContainer();
@@ -67,6 +68,14 @@ $container['courseController'] = function ($container) {
 $container['studentController'] = function ($container) {
 	return new studentController($container);
 };
+
+$container['loginController'] = function ($container) {
+	return new loginController($container);
+};
+
+$app->get('/login', 'loginController:showLogin');
+$app->post('/login', 'loginController:verifyDetails');
+$app->get('/logout', 'loginController:logout');
 
 $app->get('/school', 'schoolController:showMain');
 $app->get('/administration', 'adminController:showMain');

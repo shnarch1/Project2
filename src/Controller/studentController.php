@@ -13,6 +13,11 @@ class studentController extends baseController {
 	}
 
 	public function getStudent(Request $request, Response $response, $args){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$student_id = $args['id'];
 
 		$student = $this->entityManager->getRepository('Student', '*')->find($student_id);
@@ -45,6 +50,11 @@ class studentController extends baseController {
 	}
 
 	public function deleteStudent(Request $request, Response $response, $args){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$student_id = $args['id'];
 		$student= $this->entityManager->getRepository('Student')->find($student_id);
 		$this->entityManager->remove($student);
@@ -53,6 +63,10 @@ class studentController extends baseController {
 
 	public function updateStudent(Request $request, Response $response, $args){
 
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+		
 		$files = $request->getUploadedFiles();
 
 		$content = $request->getParams();
@@ -100,6 +114,11 @@ class studentController extends baseController {
 	}
 
 	public function addStudent(Request $request, Response $response){
+		
+		if(!isLoggedIn()){
+			return unauthorized($response);
+		}
+
 		$files = $request->getUploadedFiles();
 		$content = $request->getParams();
 
