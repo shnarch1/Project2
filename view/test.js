@@ -363,13 +363,29 @@ function buildEditAdmin(id, name, phone, email, role, image_url){
 			   id:"admin-new-image"})
 			.change(adminImagePreview);
 
+	var role_select = $("<select>", {name: "admin_role"})
+					.append($("<option>", {value: "owner", text:"Owner"}))
+					.append($("<option>", {value: "manager", text:"Manager"}))
+					.append($("<option>", {value: "sales", text:"Sales"}));
+
 	var form_inputs = $("<div>", {class: "admin-edit-inputs"})
 					.append($("<input>", {type: "text", name: "admin_name", placeholder:"Name", value: name}))
 					.append($("<input>", {type: "text", name: "admin_phone", placeholder:"Phone", value: phone}))
 					.append($("<input>", {type: "text", name: "admin_email", placeholder:"Email", value: email}))
-					.append($("<input>", {type: "text", name: "admin_role", placeholder:"Role", value: role}))
+					// .append($("<input>", {type: "text", name: "admin_role", placeholder:"Role", value: role}))
+					.append(role_select)
 					.append($(input_file))
 					.appendTo(form);
+
+	var select_options = $("option");
+	for (var i=0; i<select_options.length; i++) {
+		if(select_options[i].value == role){
+			select_options[i].selected = true;
+		}
+		else{
+			select_options[i].selected = false;
+		}
+	};
 
 	var edit_footer = $("<div>", {class: "admin-edit-footer"})
 					.append($("<img>", {src: image_url}))
