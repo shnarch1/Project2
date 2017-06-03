@@ -7,7 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 // require 'functions.php';
 
-session_start();
+// session_start();
 
 class courseController extends baseController {
 
@@ -116,19 +116,21 @@ class courseController extends baseController {
 			return unauthorized($response);
 		}
 
+		$course = new Course();
+
 		$files = $request->getUploadedFiles();
 		$content = $request->getParams();
 
 		$new_image = $files['new_course_image'];
-
-		$new_image_file_name = $new_image->getClientFilename();
-    	$new_image_url = "public/images/course/" + $new_image_file_name;
-    	$new_image->moveTo($new_image_url);
-
-		$course = new Course();
+		if ($new_image->file != ''){
+			$new_image_file_name = time();
+			$new_image_url = "public/images/courses/" . $new_image_file_name;
+			$new_image->moveTo($new_image_url);
+			$course->setImageUrl($new_image_url);
+		}
+		
 		$course->setName($content['course_name']);
 		$course->setDescription($content['course_description']);
-		$course->setImageUrl($new_image_url);
 
 		$this->entityManager->persist($course);
 		$this->entityManager->flush();

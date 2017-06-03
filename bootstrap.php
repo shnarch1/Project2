@@ -4,10 +4,10 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 require_once "vendor/autoload.php";
-include 'src/Entity/Course.php';
-include 'src/Entity/Administrator.php';
-include 'src/Entity/Student.php';
-include 'src/Entity/Role.php';
+require_once 'src/Entity/Course.php';
+require_once 'src/Entity/Administrator.php';
+require_once 'src/Entity/Student.php';
+require_once 'src/Entity/Role.php';
 
 // Create a simple "default" Doctrine ORM configuration for Annotations
 $isDevMode = true;

@@ -7,15 +7,17 @@
 						<div class="btn-add">+</div>
 					{%endif%}
 				</header>
-				{% for course in courses %}
-				<div data-url="school/course/{{ course.getId}}" data-course_id="{{ course.getId }}" class="entitiy-container">
-					<img src={{ course.getImageUrl }}>
-					<div class="description-container">
-						<small>{{course.name}}</small>
-						<small>{{ course.description}}</small>
+				<div class="list-content">
+					{% for course in courses %}
+					<div data-url="school/course/{{ course.getId}}" data-course_id="{{ course.getId }}" class="entitiy-container">
+						<img src={{ course.getImageUrl }}>
+						<div class="description-container">
+							<small>{{course.name}}</small>
+							<small>{{ course.description}}</small>
+						</div>
 					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
 
 			<div class="entities-list student-list">
@@ -23,15 +25,17 @@
 					<span>Students</span>
 					<span class="btn-add">+</span>
 				</header>
-				{% for student in students %}
-				<div data-url="school/student/{{ student.getId }}" data-student_id="{{ student.getId }}" class="entitiy-container">
-					<img src= {{ student.getImageUrl }}>
-					<div class="description-container">
-						<small>Name: {{ student.name }}</small>
-						<small>Phone: {{ student.phone }}</small>
+				<div class="list-content">
+					{% for student in students %}
+					<div data-url="school/student/{{ student.getId }}" data-student_id="{{ student.getId }}" class="entitiy-container">
+						<img src= {{ student.getImageUrl }}>
+						<div class="description-container">
+							<small>Name: {{ student.name }}</small>
+							<small>Phone: {{ student.phone }}</small>
+						</div>
 					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
 			
 		</section>

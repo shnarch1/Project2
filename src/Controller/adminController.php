@@ -6,7 +6,7 @@ require 'src/Entity/Administrator.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-session_start();
+// session_start();
 
 class adminController extends baseController {
 
@@ -20,6 +20,7 @@ class adminController extends baseController {
 		}
 
 		$user = ["name" => $_SESSION['name'],
+				 "imageUrl" => $_SESSION['imageUrl'],
 				 "role" => $_SESSION['role']];
 
 		$admins = $this->entityManager->getRepository('Administrator')->findAll();

@@ -6,7 +6,7 @@ require 'functions.php';
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-session_start();
+// session_start();
 
 class schoolController extends baseController {
 
@@ -20,6 +20,7 @@ class schoolController extends baseController {
 		}
 
 		$user = ["name" => $_SESSION['name'],
+				 "imageUrl" => $_SESSION['imageUrl'],
 				 "role" => $_SESSION['role']];
 		$students = $this->entityManager->getRepository('Student')->findAll();
 		$courses = $this->entityManager->getRepository('Course')->findAll();

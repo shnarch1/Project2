@@ -3,7 +3,12 @@
 <head>
 	<title></title>
 	<style type="text/css">
-	#main {
+	
+    body{
+        margin: 0;
+    }
+
+    #main {
         margin: 0 auto;
         padding: 0;
         display: flex;
@@ -17,6 +22,43 @@
     nav{
     	display: flex;
     	justify-content: space-between;
+        background: #1f1f1f;
+        color: #dddddd;
+        font-family: "Roboto", sans-serif;
+    }
+
+    nav #menu{
+        display: flex;
+        align-items: center;
+    }
+
+    nav a{
+        text-decoration: none;
+        font-size: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
+        cursor: pointer;
+    }
+
+    nav a:visited{
+        text-decoration: none;
+        color:currentColor;
+    }
+
+        nav a:hover{
+        color: #FFFFFF;
+    }
+
+
+
+    nav #signed-user{
+        display: flex;
+        align-items: center;
+    }
+
+    nav #signed-user img{
+        width: 50px;
+        border-radius: 50px;
     }
     
     #entities{
@@ -26,11 +68,37 @@
         flex-wrap: wrap;   
 
     }
+
+    .list-content{
+        height: 400px;
+        overflow-y: auto;
+    }
+
+    .list-content::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+ 
+    .list-content::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+     
+    .list-content::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #dddddd;
+    }
+
     .entities-list{
 
     	display: flex;
     	flex-direction: column;
+    }
 
+    .entities-list header{
+        margin-bottom: 10px;
     }
     
     .course-list{

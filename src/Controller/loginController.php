@@ -38,6 +38,7 @@ class loginController extends baseController {
 			$_SESSION['name'] = $user->getName();
 	        $_SESSION['phone'] = $user->getPhone();
 	        $_SESSION['email'] = $user->getEmail();
+	        $_SESSION['imageUrl'] = $user->getImageUrl();
 	        $_SESSION['role'] = $this->entityManager->createQuery("SELECT r.name FROM Administrator a JOIN a.role r where a.id='{$user->getId()}'")->getResult()[0]['name'];
 	        $_SESSION['logged_in'] = true;
 			}

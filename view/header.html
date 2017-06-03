@@ -1,16 +1,16 @@
 <header>
 		<nav>
 			<div id="menu">
-				<img src="http://opensourceschoolsoftware.com/images/OS.png" width=50px> |
-				<a href="/school">School</a> |
+				<img src="http://www.thegraycenter.org/wp-content/uploads/2015/12/CodeSchool.png" width=170px> 
+				<a href="/school">School</a> 
 				{% if user.role != "sales" %}
 					<a href="/administration">Administration</a>
 				{% endif %}
 			</div>
 			<div id="signed-user">
-				<small>{{user.name}}, {{user.role}}</small> |
-				<a href="/logout">logout</a> |
-				<img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" width=50px>
+				<small>{{user.name}}, {{user.role}}</small>
+				<a href="/logout">logout</a>
+				<img src= {{user.imageUrl}}>
 			</div>
 		</nav>
-	</header>
+</header>
