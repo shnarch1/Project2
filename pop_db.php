@@ -34,11 +34,11 @@
 	$entityManager->flush();
 
 	$pass = password_hash ( "pass1" , PASSWORD_DEFAULT);
-	$admin1 = new Administrator("admin1", "0545540121", "admin1@gmail.com", $pass, "/public/images/admins/default.jpg");
+	$admin1 = new Administrator("admin1", "0545540121", "admin1@gmail.com", $pass, "/public/images/admins/owner.jpg");
 	$pass = password_hash ( "pass2" , PASSWORD_DEFAULT);
-	$admin2 = new Administrator("admin2", "123456789", "admin2@gmail.com", $pass, "/public/images/admins/default.jpg");
+	$admin2 = new Administrator("admin2", "123456789", "admin2@gmail.com", $pass, "/public/images/admins/manager.jpg");
 	$pass = password_hash ( "pass3" , PASSWORD_DEFAULT);
-	$admin3 = new Administrator("admin3", "000000000", "admin3@gmail.com", $pass , "/public/images/admins/default.jpg");
+	$admin3 = new Administrator("admin3", "000000000", "admin3@gmail.com", $pass , "/public/images/admins/sales.jpg");
 	$entityManager->persist($admin1);
 	$entityManager->persist($admin2);
 	$entityManager->persist($admin3);

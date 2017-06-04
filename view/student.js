@@ -1,5 +1,5 @@
 $(".student-list .entitiy-container").click(function(event) {
-	var entity_container = $(event.target).parents('.entitiy-container');
+	var entity_container = $(event.target).closest('.entitiy-container');
 	var url = entity_container[0].dataset.url;
 	$.get(url, function(data){
 		$('#view').empty();
