@@ -1,0 +1,89 @@
+body{
+        margin: 0;
+    }  
+    
+    #entities{
+    	display: flex;
+    	flex-direction: row;
+    	width: 50%;
+        flex-wrap: wrap;   
+
+    }
+
+    .list-content{
+        height: 400px;
+        overflow-y: auto;
+    }
+
+    .list-content::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+ 
+    .list-content::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+     
+    .list-content::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #dddddd;
+    }
+
+    .entities-list{
+
+    	display: flex;
+    	flex-direction: column;
+    }
+
+    .entities-list header{
+        margin-bottom: 10px;
+    }
+    
+    .course-list{
+        flex-basis: 60%;
+    }
+    .student-list{
+        flex-basis: 38%;
+        margin-left: 2%;
+    }
+
+    .admin-list{
+        flex-basis: 98%;
+        margin-left: 2%;
+    }
+
+    .entities-list > header{
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-between;
+    	border-bottom: thin solid black;
+    	padding-bottom: 3px;
+
+
+    }
+    .btn-add{
+    	border: thin solid black;
+    	border-radius: 100px;
+        cursor: pointer;
+
+    }
+
+    .entitiy-container{
+    	display: flex;
+    	flex-direction: row;
+        margin-top: 1rem;
+        cursor: pointer;
+    }
+
+    .entitiy-container > img{
+        height: 70px;
+
+    }
+    .description-container{
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: space-around;
+    }

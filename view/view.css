@@ -1,0 +1,195 @@
+#view{
+        width: 48%;
+        margin-left: 2%;
+        max-height: 414px;
+        box-sizing: border-box;
+    }
+
+    .view-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid black;
+        padding-bottom: 3px;
+    }
+
+    .view-top{
+        display: flex;
+        flex-direction: row;
+         margin-top: 1rem;
+    }
+
+    .view-top > img {
+        height: 150px;
+    }
+
+
+    .view-text{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .view-bottom{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .student-entity{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .course-entity{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+
+    .student-entity > img{
+        height: 30px;
+    }
+
+    .course-entity > img{
+        height: 30px;
+    }
+
+    .course-edit{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .course-edit > header{
+        border-bottom: 1px solid black;
+        padding-bottom: 3px;
+    }
+
+    .course-edit-btns{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: .5rem;
+    }
+
+    .course-edit-inputs{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course-edit-inputs input, .course-edit-inputs textarea{
+        margin-top: 10px;
+        width:50%;
+    }
+
+    .course-edit textarea{
+        resize: none;
+        height: 100px;
+    }
+
+    .course-edit-footer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .course-edit-footer >img{
+        width: 150px;
+    }
+
+    .student-edit{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .student-edit > header{
+        border-bottom: 1px solid black;
+        padding-bottom: 3px;
+    }
+
+    .student-edit-btns{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: .5rem;
+    }
+
+    .student-edit-inputs{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .student-edit-inputs input{
+        margin-top: 10px;
+        width:50%;
+    }
+
+    .student-edit-footer >img{
+        
+        display: block;
+        width: 150px;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+
+    .student-edit-courses{
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-height: 70px;
+        overflow-y : auto;
+    }
+
+   .admin-edit{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+    .admin-edit > header{
+        border-bottom: 1px solid black;
+        padding-bottom: 3px;
+    }
+
+    .admin-edit-btns{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: .5rem;
+    }
+
+    .admin-edit-inputs{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-edit-inputs input{
+        margin-top: 10px;
+        width:50%;
+    }
+
+    .admin-edit-inputs select{
+        margin-top: 10px;
+        width:50%;
+        background: #FFFFFF;
+    }
+
+    .admin-edit-footer >img{
+        
+        display: block;
+        width: 150px;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
