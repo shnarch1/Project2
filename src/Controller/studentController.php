@@ -144,6 +144,10 @@ class studentController extends baseController {
     		$new_image->moveTo($new_image_url);	    		
 			$student->setImageUrl($new_image_url);
 		}
+		else
+		{
+			$student->setImageUrl('public/images/students/default.png');
+		}
 
 		$this->entityManager->persist($student);
 		$this->entityManager->flush();

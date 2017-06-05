@@ -12,8 +12,8 @@
 					<div data-url="school/course/{{ course.getId}}" data-course_id="{{ course.getId }}" class="entitiy-container">
 						<img src={{ course.getImageUrl }}>
 						<div class="description-container">
-							<small>{{course.name}}</small>
-							<small>{{ course.description}}</small>
+							<div class="desc-title">{{course.name}}</div>
+							<div class="desc-content">{{ course.description}}</div>
 						</div>
 					</div>
 					{% endfor %}
@@ -30,8 +30,8 @@
 					<div data-url="school/student/{{ student.getId }}" data-student_id="{{ student.getId }}" class="entitiy-container">
 						<img src= {{ student.getImageUrl }}>
 						<div class="description-container">
-							<small>Name: {{ student.name }}</small>
-							<small>Phone: {{ student.phone }}</small>
+							<div>Name: {{ student.name }}</div>
+							<div>Phone: {{ student.phone }}</div>
 						</div>
 					</div>
 					{% endfor %}

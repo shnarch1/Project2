@@ -127,6 +127,8 @@ class courseController extends baseController {
 			$new_image_url = "public/images/courses/" . $new_image_file_name;
 			$new_image->moveTo($new_image_url);
 			$course->setImageUrl($new_image_url);
+		}else{
+			$course->setImageUrl('public/images/courses/default');
 		}
 		
 		$course->setName($content['course_name']);

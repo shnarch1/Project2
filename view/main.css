@@ -11,7 +11,7 @@ body{
     }
 
     .list-content{
-        height: 400px;
+        height: 800px;
         overflow-y: auto;
     }
 
@@ -74,16 +74,31 @@ body{
     .entitiy-container{
     	display: flex;
     	flex-direction: row;
-        margin-top: 1rem;
+        align-items: center;
+        margin-top: 30px;
         cursor: pointer;
+        height: 100px;
+    }
+
+    #entities .desc-title{
+        font-size: 16px;
+        padding-bottom: 10px;
+        font-weight: bold;
     }
 
     .entitiy-container > img{
-        height: 70px;
+        height: 100px;
 
     }
     .description-container{
     	display: flex;
     	flex-direction: column;
-    	justify-content: space-around;
+    }
+
+    .desc-content{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
